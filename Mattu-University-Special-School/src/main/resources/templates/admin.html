@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<!-- Coding by CodingLab | www.codinglabweb.com -->
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!----======== CSS ======== -->
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+
+    <!----===== Boxicons CSS ===== -->
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Admins Dashboard</title>
+</head>
+<body>
+<nav class="sidebar close">
+    <header>
+        <div class="image-text">
+                <span class="image">
+                    <img src="/images/logo.png"; alt="">
+                </span>
+
+            <div class="text logo-text">
+                <span class="name">MauSS</span>
+                <span class="profession">Admins Dashboard</span>
+            </div>
+        </div>
+
+        <i class='bx bx-chevron-right toggle'></i>
+    </header>
+
+    <div class="menu-bar">
+        <div class="menu">
+
+            <li class="search-box">
+                <i class='bx bx-user-check icon'></i>
+                <p class="text nav-text">Hello, <b th:text="${usrFName}"></b></p>
+            </li>
+
+            <ul class="menu-links">
+                <li class="nav-link">
+                    <a onclick="home()">
+                        <i class='bx bx-home-alt icon' ></i>
+                        <span class="text nav-text">Dashboard</span>
+                    </a>
+                </li>
+
+                <li class="nav-link">
+                    <a onclick="user()">
+                        <i class='bx bx-user icon'></i>
+                        <span class="text nav-text">Users</span>
+                    </a>
+                </li>
+
+                <li class="nav-link">
+                    <a  onclick="system()">
+                        <i class='bx bx-cog icon' ></i>
+                        <span class="text nav-text">System</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="bottom-content">
+            <li class="">
+                <a th:href="@{/profile}">
+                    <i class='bx bx-user-circle icon' ></i>
+                    <span class="text nav-text">Profile</span>
+                </a>
+            </li>
+            <li class="">
+                <a th:href="@{/logout}">
+                    <i class='bx bx-log-out icon' ></i>
+                    <span class="text nav-text">Logout</span>
+                </a>
+            </li>
+
+            <li class="mode">
+                <div class="sun-moon">
+                    <i class='bx bx-moon icon moon'></i>
+                    <i class='bx bx-sun icon sun'></i>
+                </div>
+                <span class="mode-text text">Dark mode</span>
+
+                <div class="toggle-switch">
+                    <span class="switch"></span>
+                </div>
+            </li>
+
+        </div>
+    </div>
+
+</nav>
+
+<section  id="hm"  class="home">
+    <div  class="text">Dashboard Analytic</div>
+    <div style="color:darkblue;" class="text">Analytics</div>
+    <div class="container">
+        <div class="box">
+            <i class="fas fa-users icon"></i>
+            <span style="font-size: 24px; color:rgb(222, 222, 230)" class="text">Users</span>
+            <span th:text="${allS}" class="number"></span> <!-- Add number of users here -->
+        </div>
+        <div class="box">
+            <i class="fas fa-graduation-cap icon"></i>
+            <span style="font-size: 24px; color:rgb(255, 255, 255)" class="text">Registrar</span>
+            <span th:text="${regS}" class="number"></span> <!-- Add number of registrars here -->
+        </div>
+        <div class="box">
+            <i class="fas fa-chalkboard-teacher icon"></i>
+            <span style="font-size: 24px; color:rgb(224, 224, 228)" class="text">Teachers</span>
+            <span th:text="${teachS}" class="number"></span> <!-- Add number of teachers here -->
+        </div>
+        <div class="box">
+            <i class="fas fa-user-graduate icon"></i>
+            <span style="font-size: 24px; color:rgb(255, 255, 255)" class="text">Students</span>
+            <span th:text="${stuS}" class="number"></span> <!-- Add number of students here -->
+        </div>
+    </div>
+</section>
+
+<section style="display:none;" id="sys" class="home">
+    <div class="text">System Settings</div>
+    <div class="main-container">
+        <div class="left-side">
+            <h3 style="color:darkgreen" class="update-heading">Website Informations</h3>
+            <img style="display: block; margin: 0 auto; width: 20%; height: auto;" src="/images/logo.png" alt="">
+            <div class="update-info">
+                <div class="update-item">
+                    <a style="text-decoration: none; " href="#">
+                        <i class="fab fa-telegram"></i>
+                        <span class="info-text">Telegram</span>
+                    </a>
+                </div>
+                <div class="update-item">
+                    <a style="text-decoration: none; " href="#">
+                        <i class="fab fa-instagram"></i>
+                        <span class="info-text">Instagram</span>
+                    </a>
+                </div>
+                <div class="update-item">
+                    <a style="text-decoration: none; " href="#">
+                        <i class="fab fa-facebook"></i>
+                        <span class="info-text">Facebook</span>
+                    </a>
+                </div>
+                <div class="update-item">
+                    <a style="text-decoration: none; " href="#">
+                        <i class="fab fa-twitter"></i>
+                        <span class="info-text">Twitter</span>
+                    </a>
+                </div>
+                <div class="update-item">
+                    <i class="fas fa-phone"></i>
+                    <span class="info-text">Phone :</span>
+                    <span>+251 0023 13313</span>
+                </div>
+                <div class="update-item">
+                    <i class="fas fa-school"></i>
+                    <span class="info-text">School :</span>
+                    <span> MaUSS</span>
+                </div>
+            </div>
+            <a onclick="viewLeft()"
+               style="text-decoration: none; cursor: pointer;
+      color:white; width: 15%; padding:3px; border-radius: 5px;
+        background-color:darkgreen;
+      " class="update-link"><i class="fas fa-pencil-alt"></i> Update</a>
+        </div>
+        <div class="right-side">
+            <h3 class="admin-info-heading">Administrators Information</h3>
+            <div class="admin-info">
+                <div class="admin-item">
+                    <img src="/images/person2.jpg" alt="Admin Image">
+                    <div class="info">
+                        <span class="name">John Doe</span>
+                        <span class="email">john@example.com</span>
+                        <span class="position">Manager</span>
+                    </div>
+                </div>
+                <div class="admin-item">
+                    <img src="/images/person1.jpg" alt="Admin Image">
+                    <div class="info">
+                        <span class="name">Jane Smith</span>
+                        <span class="email">jane@example.com</span>
+                        <span class="position">Supervisor</span>
+                    </div>
+                </div>
+                <!-- Add more admin items here -->
+            </div>
+            <a onclick="viewRight()"
+               style="text-decoration: none; cursor: pointer;
+      color:white; width: 15%; padding:3px; border-radius: 5px;
+        background-color:darkgreen;
+      " class="update-link"><i class="fas fa-pencil-alt"></i> Update</a>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div style="display: none;" id="left-one" class="left-side">
+            <h3 class="update-heading">Update System Settings</h3>
+            <form class="update-form">
+                <div class="form-group">
+                    <label for="instagram">Instagram:</label>
+                    <input type="text" id="instagram" name="instagram">
+                </div>
+                <div class="form-group">
+                    <label for="twitter">Twitter:</label>
+                    <input type="text" id="twitter" name="twitter">
+                </div>
+                <div class="form-group">
+                    <label for="telegram">Telegram:</label>
+                    <input type="text" id="telegram" name="telegram">
+                </div>
+                <div class="form-group">
+                    <label for="facebook">Facebook:</label>
+                    <input type="text" id="facebook" name="facebook">
+                </div>
+                <div class="form-group">
+                    <label for="phoneN">Phone Number:</label>
+                    <input type="text" id="phoneN" name="phone">
+                </div>
+                <div class="form-group">
+                    <label for="school-name">School Name:</label>
+                    <input type="text" id="school-name" name="school-name">
+                </div>
+                <div class="form-group">
+                    <label for="logo">Logo Image:</label>
+                    <input type="file" id="logo" name="logo">
+                </div>
+                <div class="form-group">
+                    <button style="padding: 5px 10px; color: white; border-radius: 5px;
+          font-weight: bolder; border: none;
+          background-color:rgb(15, 15, 170);" type="submit">Update</button>
+                </div>
+            </form>
+        </div>
+        <div style="display: none;" id="right-one" class="right-side">
+            <h3 class="admin-info-heading">Administrators Information</h3>
+            <form class="update-form">
+                <div class="admin-info">
+                    <div class="admin-info-item">
+                        <label for="admin-name">Name:</label>
+                        <input type="text" id="admin-name" name="admin-name">
+                    </div>
+                    <div class="admin-info-item">
+                        <label for="admin-email">Email:</label>
+                        <input type="email" id="admin-email" name="admin-email">
+                    </div>
+                    <div class="admin-info-item">
+                        <label for="admin-position">Position:</label>
+                        <select id="admin-position" name="admin-position">
+                            <option value="manager">Manager</option>
+                            <option value="supervisor">Supervisor</option>
+                            <option value="coordinator">Coordinator</option>
+                        </select>
+                    </div>
+                    <div class="admin-info-item">
+                        <label for="admin-image">Image:</label>
+                        <input type="file" id="admin-image" name="admin-image">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button style="padding: 5px 10px; color: white; border-radius: 5px;
+        font-weight: bolder; border: none;
+        background-color:rgb(15, 15, 170);" type="submit">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div style="margin: 40px;">.</div>
+</section>
+
+<section style="display:none;" id="usr" class="home">
+    <div class="text">Users</div>
+    <div style="margin: 20px;"><a onclick="createSport()" class="btn btn-view"><i class="fas fa-plus"></i> Add Users</a></div>
+    <div id="cntrSprt" style="display:none;" class="container-create">
+        <!-- Placeholder for success message -->
+        <div style="margin-left: 42%; margin-right: 36%;  background-color: rgb(25, 128, 25);
+  color: white; padding: 3px 10px; border-radius: 5px;"
+             id="successMessage"></div>
+        <div  style="margin-left: 42%; margin-right: 35%;  background-color: rgb(218, 137, 17);
+  color: white; padding: 3px 10px; border-radius: 5px;"
+              id="errorMessage"></div>
+
+        <h2>Create New User</h2>
+        <form id="userForm" th:action="@{/users/save}" th:object="${user}" method="post" enctype="multipart/form-data">
+            <label for="fName">First Name:</label>
+            <input type="text" id="fName" th:field="*{fName}" required>
+
+            <label for="mName">Middle Name:</label>
+            <input type="text" id="mName" th:field="*{mName}" required>
+
+            <label for="lName">Last Name:</label>
+            <input type="text" id="lName" th:field="*{lName}" required>
+
+            <label for="email">Email Address:</label>
+            <input type="text" id="email" th:field="*{email}" required>
+
+            <label for="dob">Date of Birth:<label>
+                <input type="date" id="dob" th:field="*{dob}" required>
+
+                <label for="phone">Phone Number:</label>
+                <input type="text" id="phone" placeholder="09/07" th:field="*{phone}" required>
+
+                <label for="type">Role (choose):</label>
+                <select id="type" th:field="*{role}" required>
+                    <option value="student">Student</option>
+                    <option value="teacher">Teacher</option>
+                    <option value="registrar">Registrar</option>
+                    <option value="admin">Admin</option>
+                </select>
+                <br>
+                <br>
+                <input style="background-color: blue; color: white; padding: 3px 10px;" type="submit" value="Create"/>
+        </form>
+    </div>
+    <div id="userManagement" class="filter">
+        <h2>Filter: </h2>
+        <select name="Role" id="roleSelect">
+            <option value="">All</option>
+            <option value="admin">Admins</option>
+            <option value="registrar">Registrar</option>
+            <option value="department">Departments</option>
+            <option value="teacher">Teachers</option>
+            <option value="student">Students</option>
+        </select>
+        <form>
+            <input type="search" id="searchInput" placeholder="Enter Id Number">
+        </form>
+    </div>
+    <div id="userTableContainer">
+        <table id="userTable">
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>ID</th>
+                <th>Role</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+<!--            <tr th:each="user, iterStat : ${users}">-->
+<!--                <td th:text="${iterStat.count}"></td>-->
+<!--                <td th:text="${user.fName + ' ' + user.mName + ' ' + user.lName}"></td>-->
+<!--                <td th:text="${user.username}"></td>-->
+<!--                <td th:text="${user.email}"></td>-->
+<!--                <td th:text="${user.uniqueId}"></td>-->
+<!--                <td th:text="${user.role}"></td>-->
+<!--                <td>-->
+<!--                    <button class="update-btn" onclick="updateUser(${user.id})">-->
+<!--                        <i class="fas fa-pencil-alt"></i> Update-->
+<!--                    </button>-->
+<!--                    <button class="delete-btn" onclick="deleteUser(${user.id})">-->
+<!--                        <i class="fas fa-trash"></i> Delete-->
+<!--                    </button>-->
+<!--                </td>-->
+<!--            </tr>-->
+            </tbody>
+        </table>
+    </div>
+    <div style="margin: 40px;">.</div>
+</section>
+
+<!-- UNTOUCHABLE DIV -->
+<div style="display: none;">
+    <label for="orderPrice">Material Price:</label>
+    <input type="number" id="orderPrice"  required>
+
+    <label for="opdPercentage">Material Discount Percent:</label>
+    <input type="number" id="opdPercentage"  max="100" min="0" >
+
+</div>
+<script>
+    function calculateDiscount() {
+        var perc = parseFloat(document.getElementById("opdPercentage").value);
+        var price = parseFloat(document.getElementById("orderPrice").value);
+
+        if (!isNaN(perc) && !isNaN(price) && perc !== 0) {
+            var val = price - (price * perc) / 100;
+            document.getElementById("opdPrice").value = val;
+        } else {
+            document.getElementById("opdPrice").value = price;
+        }
+    }
+    document.getElementById("opdPercentage").addEventListener("input", calculateDiscount);
+    document.getElementById("orderPrice").addEventListener("input", calculateDiscount);
+
+            function home(){
+                var hm = document.getElementById("hm");
+                var usr = document.getElementById("usr");
+                var sys = document.getElementById("sys");
+
+                hm.style.display = "";
+                sys.style.display ="none";
+                usr.style.display ="none";
+            }
+            function system(){
+              var hm = document.getElementById("hm");
+              var usr = document.getElementById("usr");
+              var sys = document.getElementById("sys");
+
+              hm.style.display = "none";
+              sys.style.display ="";
+              usr.style.display ="none";
+            }
+            function user(){
+              var hm = document.getElementById("hm");
+              var usr = document.getElementById("usr");
+              var sys = document.getElementById("sys");
+
+              hm.style.display = "none";
+              sys.style.display ="none";
+              usr.style.display ="";
+            }
+
+            function viewLeft(){
+              var left = document.getElementById("left-one");
+              left.style.display = left.style.display === ""? "none" : "";
+            }
+            function viewRight(){
+              var right = document.getElementById("right-one");
+              right.style.display = right.style.display === ""? "none" : "";
+
+            }
+            function createSport(){
+                var cntrSprt = document.getElementById("cntrSprt");
+
+                cntrSprt.style.display = cntrSprt.style.display
+                === ""? "none" : "";
+            }
+            const body = document.querySelector('body'),
+          sidebar = body.querySelector('nav'),
+          toggle = body.querySelector(".toggle"),
+          searchBtn = body.querySelector(".search-box"),
+          modeSwitch = body.querySelector(".toggle-switch"),
+          modeText = body.querySelector(".mode-text");
+
+
+    toggle.addEventListener("click" , () =>{
+        sidebar.classList.toggle("close");
+    })
+
+    searchBtn.addEventListener("click" , () =>{
+        sidebar.classList.remove("close");
+    })
+
+    modeSwitch.addEventListener("click" , () =>{
+        body.classList.toggle("dark");
+
+        if(body.classList.contains("dark")){
+            modeText.innerText = "Light mode";
+        }else{
+            modeText.innerText = "Dark mode";
+
+        }
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+    // Function to fetch and update user data
+    function updateUserTable() {
+        $.ajax({
+            type: "GET",
+            url: "/users/all",
+            dataType: "json",
+            success: function(data) {
+                // Clear existing table rows
+                $('#userTable tbody').empty();
+
+                // Iterate over each user and append a new row to the table
+                $.each(data, function(index, user) {
+                    var row = '<tr>' +
+                        '<td>' + (index + 1) + '</td>' +
+                        '<td>' + user.fname + ' ' + user.mname + ' ' + user.lname + '</td>' +
+                        '<td>' + user.username + '</td>' +
+                        '<td>' + user.email + '</td>' +
+                        '<td>' + user.uniqueId + '</td>' +
+                        '<td>' + user.role + '</td>' +
+                        '<td>' +
+                        '<button class="update-btn" onclick="updateUser(' + user.id + ')"><i class="fas fa-pencil-alt"></i> Update</button>' +
+                        '<button class="delete-btn" onclick="deleteUser(' + user.id + ')"><i class="fas fa-trash"></i> Delete</button>' +
+                        '</td>' +
+                        '</tr>';
+                    $('#userTable tbody').append(row);
+                });
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error('Error fetching user data: ' + errorThrown);
+            }
+        });
+    }
+
+    // Initial call to populate user table on page load
+    updateUserTable();
+});
+
+    $(document).ready(function() {
+           // Attach a submit handler to the form
+           $('#userForm').submit(function(event) {
+               // Prevent default form submission
+               event.preventDefault();
+
+               // Serialize the form data
+               var formData = $(this).serialize();
+
+               // Send AJAX request
+               $.ajax({
+                   type: "POST",
+                   url: "/users/save",
+                   data: formData,
+                   success: function(data) {
+                       // Handle success response here
+                       try {
+                           // Show success message on HTML without reloading
+                           $('#successMessage').text('(X) User is successfully saved');
+                           updateUserTable();
+                       } catch (error) {
+                           console.error('Error showing success message: ' + error);
+                       }
+                   },
+                   error: function(jqXHR, textStatus, errorThrown) {
+                       // Handle error response here
+                       try {
+                           // Show error message on HTML without reloading
+                           $('#errorMessage').text('Error saving user: ' + errorThrown);
+                       } catch (error) {
+                           console.error('Error showing error message: ' + error);
+                       }
+                   }
+               });
+           });
+       });
+function updateUser(userId) {
+    // Send AJAX request to update user with given ID
+    $.ajax({
+        type: "PUT",
+        url: "/users/update/" + userId, // Adjust URL as per your backend
+        success: function(data) {
+            // Update table with new data (data received from server)
+            $('#userTable').html(data);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error('Error updating user: ' + errorThrown);
+        }
+    });
+}
+
+function deleteUser(userId) {
+    // Send AJAX request to delete user with given ID
+    $.ajax({
+        type: "DELETE",
+        url: "/users/delete/" + userId, // Adjust URL as per your backend
+        success: function(data) {
+            // Update table with new data (data received from server)
+            $('#userTable').html(data);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error('Error deleting user: ' + errorThrown);
+        }
+    });
+}
+
+
+
+       document.addEventListener('DOMContentLoaded', function() {
+       // Your JavaScript code here
+       document.getElementById('roleSelect').addEventListener('change', filterUsers);
+       document.getElementById('searchInput').addEventListener('input', filterUsers);
+   });
+
+   document.getElementById('roleSelect').addEventListener('change', filterUsers);
+   document.getElementById('searchInput').addEventListener('input', filterUsers);
+
+   function filterUsers() {
+       var selectedRole = document.getElementById('roleSelect').value;
+       var searchValue = document.getElementById('searchInput').value.toLowerCase();
+
+       var rows = document.querySelectorAll('#userTableContainer tbody tr');
+       rows.forEach(function(row) {
+           var idCell = row.querySelector('td:nth-child(5)');
+           var roleCell = row.querySelector('td:nth-child(6)');
+           var id = idCell.textContent.trim().toLowerCase();
+           var role = roleCell.textContent.trim().toLowerCase();
+
+           if ((selectedRole === '' || role === selectedRole) && id.includes(searchValue)) {
+               row.style.display = '';
+           } else {
+               row.style.display = 'none';
+           }
+       });
+   }
+</script>
+4</body>
+</html>

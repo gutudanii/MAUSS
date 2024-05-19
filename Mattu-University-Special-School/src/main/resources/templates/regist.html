@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration</title>
+</head>
+<body>
+<form th:action="@{/users/save}" method="post" th:object="${users}">
+  <input type="text" name="" th:field="*{fName}" placeholder="Fisrt Name" id="">
+  <input type="text" name="" th:field="*{mName}" placeholder="Middle Name" id="">
+  <input type="text" name="" th:field="*{lName}" placeholder="Last Name" id="">
+<!--  <input type="date" name="" th:field="*{dob}" placeholder="DOB" id="">-->
+  <input type="text" name="" th:field="*{address}" placeholder="address" id="">
+  <input type="email" name="" th:field="*{email}" placeholder="email" id="">
+  <input type="text" name="" th:field="*{role}" placeholder="role" id="">
+
+  <input type="submit" value="Create">
+</form>
+</body>
+</html>

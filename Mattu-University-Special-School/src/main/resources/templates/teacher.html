@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<!-- Coding by CodingLab | www.codinglabweb.com -->
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!----======== CSS ======== -->
+    <link rel="stylesheet" href="/css/styles.css">
+
+    <!----===== Boxicons CSS ===== -->
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Teachers Dashboard</title>
+</head>
+<body>
+<nav class="sidebar close">
+    <header>
+        <div class="image-text">
+                <span class="image">
+                    <img src="/images/logo.png"; alt="">
+                </span>
+
+            <div class="text logo-text">
+                <span class="name">MauSS</span>
+                <span class="profession">Teachers Dashboard</span>
+            </div>
+        </div>
+
+        <i class='bx bx-chevron-right toggle'></i>
+    </header>
+
+    <div class="menu-bar">
+        <div class="menu">
+
+            <li class="search-box">
+                <i class='bx bx-user-check icon'></i>
+                <p>Hello, <b>Gutu</b></p>
+            </li>
+
+            <ul class="menu-links">
+                <li class="nav-link">
+                    <a onclick="home()">
+                        <i class='bx bx-home-alt icon' ></i>
+                        <span class="text nav-text">Dashboard</span>
+                    </a>
+                </li>
+
+                <li class="nav-link">
+                    <a onclick="marks()">
+                        <i class='bx bx-edit icon'></i>
+                        <span class="text nav-text">Marks</span>
+                    </a>
+                </li>
+
+                <li class="nav-link">
+                    <a  onclick="quiz()">
+                        <i class='bx bx-edit-alt icon' ></i>
+                        <span class="text nav-text">Quizzes</span>
+                    </a>
+                </li>
+
+                <li class="nav-link">
+                    <a  onclick="material()" >
+                        <i class='bx bx-book icon' ></i>
+                        <span class="text nav-text">Materials</span>
+                    </a>
+                </li>
+
+                <li class="nav-link">
+                    <a onclick="notification()">
+                        <i class='bx bx-bell icon'></i>
+                        <span class="text nav-text">Announcement</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="bottom-content">
+            <li class="">
+                <a th:href="@{/logout}">
+                    <i class='bx bx-user-circle icon' ></i>
+                    <span class="text nav-text">Profile</span>
+                </a>
+            </li>
+            <li class="">
+                <a th:href="@{/logout}">
+                    <i class='bx bx-log-out icon' ></i>
+                    <span class="text nav-text">Logout</span>
+                </a>
+            </li>
+
+            <li class="mode">
+                <div class="sun-moon">
+                    <i class='bx bx-moon icon moon'></i>
+                    <i class='bx bx-sun icon sun'></i>
+                </div>
+                <span class="mode-text text">Dark mode</span>
+
+                <div class="toggle-switch">
+                    <span class="switch"></span>
+                </div>
+            </li>
+
+        </div>
+    </div>
+
+</nav>
+
+<section id="hm" class="home">
+    <div  class="text">Teachers Dashboard</div>
+    <div class="text">Updates</div>
+    <div class="container-1212">
+        <div style="height: auto; background: linear-gradient(to right, #797e77, #43436d); /* Dark green gradient */
+        " class="box1">
+            <h2>Marks</h2>
+            <div>
+                <div class="content-12">
+                    <i class="fas fa-eye"></i>
+                    <div class="marks-info-12">
+                        <p>Biology</p>
+                        <p>Mark: <b style="color:lightgreen;">Approved</b></p>
+                        <p style="font-size: 10px;">1 sec ago</p>
+                    </div>
+                    <a href="#" class="view-button-12">View <i class="fas fa-external-link-alt"></i></a>
+                </div>
+                <hr>
+            </div>
+        </div>
+        <div style="height: auto; background: linear-gradient(to right, #7c807a, #7fbb98); /* Dark green gradient */
+        " class="box2">
+            <h2>Announcement</h2>
+            <div>
+                <div class="content-12">
+                    <i class="fas fa-bell"></i>
+                    <div class="marks-info-12">
+                        <p>Registration is started...</p>
+                        <p style="font-size: 10px;">10 hr ago</p>
+                    </div>
+                    <a href="#" class="view-button-12">View <i class="fas fa-external-link-alt"></i></a>
+                </div>
+                <hr>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section style="display:none;" id="ntf" class="home">
+    <div class="text">Announcement</div>
+    <!-- <br> -->
+    <div class="main-content">
+        <div class="notifications">
+            <div th:each="notification : ${notifications}" class="notification-item">
+                <i class="fas fa-envelope"></i>
+                <div class="notification-info">
+                    <h3 th:text="${notification.subject}"></h3>
+                    <p th:text="${notification.message}"></p>
+                    <span th:text="${notification.formattedTimestamp}" class="notification-time"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="margin: 40px;">.</div>
+</section>
+
+<section style="display:none;" id="mrks" class="home">
+    <h2 class="text" align="center">Your MarkList</h2>
+    <div class="marklist-container-teach">
+        <h2>Active Classes</h2>
+        <div class="active-classes-teach">
+            <div class="active-box11">
+                <a href="#"><i class="fas fa-edit"></i></a>
+                <p>Grade: 9th</p>
+                <p>Section: E</p>
+                <a href="#" id="rprp" class="request-approval">Request Approval</a>
+                <p>Class: Block 5 1st Floor</p>
+            </div>
+            <div class="active-box11">
+                <a href="#"><i class="fas fa-eye"></i></a>
+                <p>Grade: 9th</p>
+                <p>Section: E</p>
+                <a href="#" id="rprp" class="pending-approval">Pending Approval</a>
+                <p>Class: Block 5 1st Floor</p>
+            </div>
+            <div class="active-box11">
+                <a href="#"> <i class="fas fa-edit"></i></a>
+                <p>Grade: 9th</p>
+                <p>Section: E</p>
+                <a href="#" id="rprp" class="request-approval">Request Approval</a>
+                <p>Class: Block 5 1st Floor</p>
+            </div>
+            <div class="active-box11">
+                <a href="#"> <i class="fas fa-edit"></i></a>
+                <p>Grade: 9th</p>
+                <p>Section: E</p>
+                <a href="#" id="rprp" class="request-approval">Request Approval</a>
+                <p>Class: Block 5 1st Floor</p>
+            </div>
+
+
+        </div>
+        <h2>Ended Class</h2>
+        <div class="end-classed-teach">
+            <h2>2023</h2>
+            <div class="end-class-year">
+                <div class="active-box11">
+                    <i class="fas fa-eye"></i>
+                    <p>Grade: 9th</p>
+                    <p>Section: E</p>
+                    <a href="#" id="rprp" class="request-approved">Request Approved</a>
+                    <p>Class: Block 5 1st Floor</p>
+                </div>
+                <div class="active-box11">
+                    <i class="fas fa-eye"></i>
+                    <p>Grade: 9th</p>
+                    <p>Section: E</p>
+                    <a href="#" id="rprp" class="request-approved">Request Approved</a>
+                    <p>Class: Block 5 1st Floor</p>
+                </div>
+                <div class="active-box11">
+                    <i class="fas fa-eye"></i>
+                    <p>Grade: 9th</p>
+                    <p>Section: E</p>
+                    <a href="#" id="rprp" class="request-approved">Request Approved</a>
+                    <p>Class: Block 5 1st Floor</p>
+                </div>
+            </div>
+            <h2>2022</h2>
+            <div class="end-class-year">
+                <div class="active-box11">
+                    <i class="fas fa-eye"></i>
+                    <p>Grade: 9th</p>
+                    <p>Section: E</p>
+                    <a href="#" id="rprp" class="request-approved">Request Approved</a>
+                    <p>Class: Block 5 1st Floor</p>
+                </div>
+                <div class="active-box11">
+                    <i class="fas fa-eye"></i>
+                    <p>Grade: 9th</p>
+                    <p>Section: E</p>
+                    <a href="#" id="rprp" class="request-approved">Request Approved</a>
+                    <p>Class: Block 5 1st Floor</p>
+                </div>
+                <div class="active-box11">
+                    <i class="fas fa-eye"></i>
+                    <p>Grade: 9th</p>
+                    <p>Section: E</p>
+                    <a href="#" id="rprp" class="request-approved">Request Approved</a>
+                    <p>Class: Block 5 1st Floor</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="margin: 40px;">.</div>
+</section>
+
+<section style="display:none;" id="qzs" class="home">
+    <h2 class="text" align="center">Quiz List</h2>
+    <div class="marklist-container-teach">
+        <h2>Active Quizzes</h2>
+        <div class="active-classes-teach">
+            <div class="active-box11">
+                <a href="#"><i class="fas fa-edit"></i></a>
+                <p>Grade: 9th</p>
+                <p>ID: UNI-12/2012</p>
+                <a href="#" id="rprp" class="active-quiz-111">Active Now</a>
+                <p>Title: Quiz out of 10</p>
+                <p>Subject: Physcics</p>
+            </div>
+            <div class="active-box11">
+                <a href="#"><i class="fas fa-edit"></i></a>
+                <p>Grade: All</p>
+                <p>ID: UNI-12/2012</p>
+                <a href="#" id="rprp" class="deactive-quiz-111">Deactived</a>
+                <p>Title: Quiz out of 10</p>
+                <p>Subject: Physcics</p>
+            </div>
+            <div class="active-box11">
+                <a href="#"> <i class="fas fa-edit"></i></a>
+                <p>Grade: 10th</p>
+                <p>ID: UNI-12/2012</p>
+                <a href="#" id="rprp" class="active-quiz-111">Active Now</a>
+                <p>Title: Quiz out of 10</p>
+                <p>Subject: Physcics</p>
+            </div>
+            <div class="active-box11">
+                <a href="#"> <i class="fas fa-edit"></i></a>
+                <p>Grade: 9th</p>
+                <p>ID: UNI-12/2012</p>
+                <a href="#" id="rprp" class="active-quiz-111">Active Now</a>
+                <p>Title: Quiz out of 10</p>
+                <p>Subject: Physcics</p>
+            </div>
+        </div>
+        <div style="margin: 40px;">.</div>
+</section>
+
+<section style="display:none;" id="mtrl" class="home">
+    <h2 class="text" align="center">Course Materials</h2>
+    <div style="margin: 20px;"><a onclick="createSport()" class="btn btn-view"><i class="fas fa-plus"></i> Add Materials</a></div>
+    <div id="cntrSprt" style="display:none;" class="container-create">
+        <!-- Placeholder for success message -->
+<!--        <div style="margin-left: 42%; margin-right: 36%;  color: darkgreen;-->
+<!--         padding: 3px 10px; border-radius: 5px;"-->
+<!--             id="successMessage"></div>-->
+<!--        <div  style="margin-left: 42%; margin-right: 35%; color: red;-->
+<!--         padding: 3px 10px; border-radius: 5px;"-->
+<!--              id="errorMessage"></div>-->
+        <h2>Add New Course Material</h2>
+        <form th:action="@{/materials/save}" th:object="${materials}" method="post" enctype="multipart/form-data">
+            <label for="orderName">Title (Name):</label>
+            <input type="text" id="fName" th:field="*{title}" required>
+
+            <label for="orderNo">Description:</label>
+            <input type="text" id="mName" th:field="*{description}" required>
+
+            <label for="type">Subject (choose):</label>
+            <select style="padding: 2px 70px; font-size: 15px;" id="type" th:field="*{courseN}" required>
+                <option value="Biology">Biology</option>
+                <option value="Chemistry">Chemistry</option>
+                <option value="Physics">Physics</option>
+                <option value="English">English</option>
+                <option value="Sport">Sport</option>
+            </select>
+
+            <label for="type">Class (choose):</label>
+            <select style="padding: 2px 50px;" id="type" th:field="*{classN}" required>
+                <option value="all">All</option>
+                <option value="grade9">Grade 9</option>
+                <option value="grade10">Grade 10</option>
+                <option value="grade11">Grade 11</option>
+                <option value="grade12">Grade 12</option>
+            </select>
+            <label for="img">File:</label>
+            <input type="file" id="img" name="material" accept=".pdf, .doc, .pptx, .">
+            <p>Accepted: .pdf, .doc, .docx, .ppt, .pptx </p>
+            <br>
+            <br>
+            <input style="background-color: blue; color: white; padding: 3px 10px;" type="submit" value="Upload"/>
+        </form>
+    </div>
+    <div class="marklist-container-teach">
+        <h2>Uploaded Materials</h2>
+        <div class="active-classes-teach">
+            <div th:each="mater : ${materialList}" class="active-box11">
+                <a th:href="@{'materials/update/' + ${mater.id}}"><i class="fas fa-edit"></i></a>
+                <p th:text="${mater.classN}"></p>
+                <p th:text="${mater.materialId}"></p>
+                <a href="#" id="rprp" class="active-quiz-111">Active Now</a>
+                <p th:text="${mater.title}">Title: Quiz out of 10</p>
+                <p th:text="${mater.courseN}">Subject: Physcics</p>
+                <span class="box-rprp">
+                <a th:href="@{'materials/' + ${mater.id} + '/download'}">
+                <p class="fa fa-download"></p>
+                Download
+                </a>
+             <a href="#"> <p class="fas fa-eye"></p>View </a></span>
+            </div>
+        </div>
+        <div style="margin: 40px;">.</div>
+</section>
+
+
+<!-- UNTOUCHABLE DIV -->
+<div style="display: none;">
+    <label for="orderNo">Material Price:</label>
+    <input type="number" id="orderPrice"  required>
+
+    <label for="orderNo">Material Discount Percent:</label>
+    <input type="number" id="opdPercentage"  max="100" min="0" >
+
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function calculateDiscount() {
+        var perc = parseFloat(document.getElementById("opdPercentage").value);
+        var price = parseFloat(document.getElementById("orderPrice").value);
+
+        if (!isNaN(perc) && !isNaN(price) && perc !== 0) {
+            var val = price - (price * perc) / 100;
+            document.getElementById("opdPrice").value = val;
+        } else {
+            document.getElementById("opdPrice").value = price;
+        }
+    }
+    document.getElementById("opdPercentage").addEventListener("input", calculateDiscount);
+    document.getElementById("orderPrice").addEventListener("input", calculateDiscount);
+
+            function home(){
+                var hm = document.getElementById("hm");
+                var ntf = document.getElementById("ntf");
+                var qzs = document.getElementById("qzs");
+                var mtrl = document.getElementById("mtrl");
+                var mrks = document.getElementById("mrks");
+
+                hm.style.display = "";
+                mrks.style.display = "none";
+                ntf.style.display ="none";
+                qzs.style.display ="none";
+                mtrl.style.display ="none";
+              }
+            function marks(){
+
+              var hm = document.getElementById("hm");
+              var ntf = document.getElementById("ntf");
+              var qzs = document.getElementById("qzs");
+              var mtrl = document.getElementById("mtrl");
+              var mrks = document.getElementById("mrks");
+
+              hm.style.display = "none";
+              mrks.style.display = "";
+              ntf.style.display ="none";
+              qzs.style.display ="none";
+              mtrl.style.display ="none";
+            }
+            function quiz(){
+
+              var hm = document.getElementById("hm");
+              var ntf = document.getElementById("ntf");
+              var qzs = document.getElementById("qzs");
+              var mtrl = document.getElementById("mtrl");
+              var mrks = document.getElementById("mrks");
+
+              hm.style.display = "none";
+              mrks.style.display = "none";
+              ntf.style.display ="none";
+              qzs.style.display ="";
+              mtrl.style.display ="none";
+            }
+            function material(){
+
+              var hm = document.getElementById("hm");
+              var ntf = document.getElementById("ntf");
+              var qzs = document.getElementById("qzs");
+              var mtrl = document.getElementById("mtrl");
+              var mrks = document.getElementById("mrks");
+
+              hm.style.display = "none";
+              mrks.style.display = "none";
+              ntf.style.display ="none";
+              qzs.style.display ="none";
+              mtrl.style.display ="";
+            }
+
+            function notification(){
+
+              var hm = document.getElementById("hm");
+              var ntf = document.getElementById("ntf");
+              var qzs = document.getElementById("qzs");
+              var mtrl = document.getElementById("mtrl");
+              var mrks = document.getElementById("mrks");
+
+              hm.style.display = "none";
+              mrks.style.display = "none";
+              ntf.style.display ="";
+              qzs.style.display ="none";
+              mtrl.style.display ="none";
+
+            }
+
+            function createSport(){
+                var cntrSprt = document.getElementById("cntrSprt");
+
+                cntrSprt.style.display = cntrSprt.style.display
+                === ""? "none" : "";
+            }
+            const body = document.querySelector('body'),
+          sidebar = body.querySelector('nav'),
+          toggle = body.querySelector(".toggle"),
+          searchBtn = body.querySelector(".search-box"),
+          modeSwitch = body.querySelector(".toggle-switch"),
+          modeText = body.querySelector(".mode-text");
+
+
+    toggle.addEventListener("click" , () =>{
+        sidebar.classList.toggle("close");
+    })
+
+    searchBtn.addEventListener("click" , () =>{
+        sidebar.classList.remove("close");
+    })
+
+    modeSwitch.addEventListener("click" , () =>{
+        body.classList.toggle("dark");
+
+        if(body.classList.contains("dark")){
+            modeText.innerText = "Light mode";
+        }else{
+            modeText.innerText = "Dark mode";
+
+        }
+    });
+</script>
+<script>
+    $(document).ready(function() {
+         // Attach a submit handler to the form
+         $('#mm').submit(function(event) {
+             // Prevent default form submission
+             event.preventDefault();
+
+             // Serialize the form data
+             var formData = $(this).serialize();
+
+             // Send AJAX request
+             $.ajax({
+                 type: "POST",
+                 url: "/materials/save",
+                 data: formData,
+                 processData: false,
+                 contentType: false,
+
+                 success: function(data) {
+                     // Handle success response here
+                     try {
+                         // Show success message on HTML without reloading
+                         $('#successMessage').text('(X) Material is successfully added');
+                     } catch (error) {
+                         console.error('Error showing success message: ' + error);
+                     }
+                 },
+                 error: function(jqXHR, textStatus, errorThrown) {
+                     // Handle error response here
+                     try {
+                         // Show error message on HTML without reloading
+                         $('#errorMessage').text('Error saving user: ' + errorThrown);
+                     } catch (error) {
+                         console.error('Error showing error message: ' + error);
+                     }
+                 }
+             });
+         });
+     });
+</script>
+</body>
+</html>

@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<!-- Coding by CodingLab | www.codinglabweb.com -->
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!----======== CSS ======== -->
+    <link rel="stylesheet" href="/css/styles.css">
+
+    <!----===== Boxicons CSS ===== -->
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Students Dashboard</title>
+</head>
+<body>
+<nav class="sidebar close">
+    <header>
+        <div class="image-text">
+                <span class="image">
+                    <img src="/images/logo.png"; alt="">
+                </span>
+
+            <div class="text logo-text">
+                <span class="name">MauSS</span>
+                <span class="profession">Students Dashboard</span>
+            </div>
+        </div>
+
+        <i id="togggg" class='bx bx-chevron-right toggle'></i>
+    </header>
+
+    <div class="menu-bar">
+        <div class="menu">
+
+            <li id="srrch" class="search-box">
+                <i class='bx bx-user-check icon'></i>
+                <p>Hello, <b th:text="${usrFName}"></b></p>
+            </li>
+
+            <ul class="menu-links">
+                <li class="nav-link">
+                    <a onclick="home()">
+                        <i class='bx bx-home-alt icon' ></i>
+                        <span class="text nav-text">Dashboard</span>
+                    </a>
+                </li>
+
+                <li class="nav-link">
+                    <a onclick="marks()">
+                        <i class='bx bx-edit icon'></i>
+                        <span class="text nav-text">Marks</span>
+                    </a>
+                </li>
+
+                <li class="nav-link">
+                    <a  onclick="quiz()">
+                        <i class='bx bx-edit-alt icon' ></i>
+                        <span class="text nav-text">Quizzes</span>
+                    </a>
+                </li>
+
+                <li class="nav-link">
+                    <a  onclick="material()" >
+                        <i class='bx bx-book icon' ></i>
+                        <span class="text nav-text">Materials</span>
+                    </a>
+                </li>
+
+                <li class="nav-link">
+                    <a onclick="notification()">
+                        <i class='bx bx-bell icon'></i>
+                        <span class="text nav-text">Announcement</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="bottom-content">
+            <li class="">
+                <a th:href="@{/profile}">
+                    <i class='bx bx-user-circle icon' ></i>
+                    <span class="text nav-text">Profile</span>
+                </a>
+            </li>
+            <li class="">
+                <a th:href="@{/logout}">
+                    <i class='bx bx-log-out icon' ></i>
+                    <span class="text nav-text">Logout</span>
+                </a>
+            </li>
+
+            <li class="mode">
+                <div class="sun-moon">
+                    <i class='bx bx-moon icon moon'></i>
+                    <i class='bx bx-sun icon sun'></i>
+                </div>
+                <span class="mode-text text">Dark mode</span>
+
+                <div class="toggle-switch">
+                    <span class="switch"></span>
+                </div>
+            </li>
+
+        </div>
+    </div>
+
+</nav>
+
+<section id="hm" class="home">
+    <div  class="text">Students Dashboard</div>
+    <p style="font-size: 24px;" class="text">Updates</p>
+    <div class="container-1212">
+        <div class="box1">
+            <h2>Marks</h2>
+            <div>
+                <div class="content-12">
+                    <i class="fas fa-eye"></i>
+                    <div class="marks-info-12">
+                        <p>Biology</p>
+                        <p>Mark Done: 80%</p>
+                        <p style="font-size: 10px;">1 sec ago</p>
+                    </div>
+                    <a href="#" class="view-button-12">View <i class="fas fa-external-link-alt"></i></a>
+                </div>
+                <hr>
+            </div>
+        </div>
+        <div class="box2">
+            <h2>Announcement</h2>
+            <div>
+                <div class="content-12">
+                    <i class="fas fa-bell"></i>
+                    <div class="marks-info-12">
+                        <p>Registration is started...</p>
+                        <p style="font-size: 10px;">10 hr ago</p>
+                    </div>
+                    <a href="#" class="view-button-12">View <i class="fas fa-external-link-alt"></i></a>
+                </div>
+                <hr>
+            </div>
+        </div>
+        <div class="box3">
+            <h2>Course Materials</h2>
+            <div>
+                <div class="content-12">
+                    <i class="fas fa-book"></i>
+                    <div class="marks-info-12">
+                        <p>Physics grade 10 materials</p>
+                        <p style="font-size: 10px;">2 min ago</p>
+                    </div>
+                    <a href="#" class="view-button-12">View <i class="fas fa-external-link-alt"></i></a>
+                </div>
+                <hr>
+            </div>
+        </div>
+        <div class="box4">
+            <h2>Quizzes</h2>
+            <div>
+                <div class="content-12">
+                    <i class="fas fa-book"></i>
+                    <div class="marks-info-12">
+                        <p>Biology 10% test </p>
+                        <p style="font-size: 10px;">3 day ago</p>
+                    </div>
+                    <a href="#" class="view-button-12">Take <i class="fas fa-external-link-alt"></i></a>
+                </div>
+                <hr>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section style="display:none;" id="ntf" class="home">
+    <div class="text">Announcement</div>
+    <!-- <br> -->
+    <div class="main-content">
+        <div class="notifications">
+            <div class="notification-item">
+                <i class="fas fa-envelope"></i>
+                <div class="notification-info">
+                    <h3>Registration is started</h3>
+                    <p>please come to registrar office and get registered</p>
+                    <span class="notification-time">1 sec ago</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="margin: 40px;">.</div>
+</section>
+
+<section style="display:none;" id="mrks" class="home">
+    <h2 class="text" align="center">Your MarkList</h2>
+    <div class="mark-container-111">
+        <div class="mark-year-cont" onclick="toggleSemesters()">
+            <h2 style="text-align: left; width:100%; font-size: 20px; padding-top:0;
+        color: white; font-weight:normal; margin: 1%;
+        "> <i class="fas fa-edit"></i> Grade 10 Mark</h2>
+        </div>
+        <div class="semester-cont-1">
+            <!-- Semester 1 content -->
+            <h2 style="font-size:26px;" class="smsms">Sem 1</h2>
+            <table class="marklist">
+                <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Subject</th>
+                    <th>10</th>
+                    <th>10</th>
+                    <th>10</th>
+                    <th>30</th>
+                    <th>40</th>
+                    <th>Total</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Biology</td>
+                    <td>10</td>
+                    <td>10</td>
+                    <td>10</td>
+                    <td>30</td>
+                    <td>40</td>
+                    <td>100%</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Physics</td>
+                    <td>10</td>
+                    <td>10</td>
+                    <td>10</td>
+                    <td>30</td>
+                    <td>40</td>
+                    <td>100%</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Physics</td>
+                    <td>10</td>
+                    <td>10</td>
+                    <td>10</td>
+                    <td>30</td>
+                    <td>40</td>
+                    <td>100%</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Physics</td>
+                    <td>10</td>
+                    <td>10</td>
+                    <td>10</td>
+                    <td>30</td>
+                    <td>40</td>
+                    <td>100%</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Physics</td>
+                    <td>10</td>
+                    <td>10</td>
+                    <td>10</td>
+                    <td>30</td>
+                    <td>40</td>
+                    <td>100%</td>
+                </tr>
+                <!-- Add more rows for other subjects -->
+                </tbody>
+            </table>
+        </div>
+        <div class="semester-cont-2">
+            <!-- Semester 2 content -->
+            <h2 style="font-size:26px;" class="smsms">Sem 2</h2>
+            <table class="marklist">
+                <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Subject</th>
+                    <th>10</th>
+                    <th>10</th>
+                    <th>10</th>
+                    <th>30</th>
+                    <th>40</th>
+                    <th>Total</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Biology</td>
+                    <td>10</td>
+                    <td>10</td>
+                    <td>10</td>
+                    <td>30</td>
+                    <td>40</td>
+                    <td>100%</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Physics</td>
+                    <td>10</td>
+                    <td>10</td>
+                    <td>10</td>
+                    <td>30</td>
+                    <td>40</td>
+                    <td>100%</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Physics</td>
+                    <td>10</td>
+                    <td>10</td>
+                    <td>10</td>
+                    <td>30</td>
+                    <td>40</td>
+                    <td>100%</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Physics</td>
+                    <td>10</td>
+                    <td>10</td>
+                    <td>10</td>
+                    <td>30</td>
+                    <td>40</td>
+                    <td>100%</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Physics</td>
+                    <td>10</td>
+                    <td>10</td>
+                    <td>10</td>
+                    <td>30</td>
+                    <td>40</td>
+                    <td>100%</td>
+                </tr>
+
+                <!-- Add more rows for other subjects -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div style="margin: 40px;">.</div>
+</section>
+
+<section style="display:none;" id="qzs" class="home">
+    <h2 class="text" align="center">Quiz List</h2>
+    <div class="quiz-container">
+        <div id="quiz-management">
+            <span style="font-weight:bolder; margin-left: 3%; font-size: 18px; color:rgb(31, 141, 175);">Filter: </span>
+            <select name="Grade" id="gradeSelector">
+                <option value="">All</option>
+                <option value="grade9">Grade 9</option>
+                <option value="grade10">Grade 10</option>
+                <option value="grade11">Grade 11</option>
+                <option value="grade12">Grade 12</option>
+            </select>
+            <form>
+                <label style="font-weight: bolder; margin-left: 3%; color: rgb(39, 117, 163);" for="searchInput">Enter ID or Subject: </label>
+                <input style="padding: 3px 15px; margin-left: 3%; border-radius: 5px;"  type="search" id="searchInput" placeholder="Enter Exam ID or Subject Number">
+            </form>
+        </div>
+
+        <table id="quizTable">
+            <thead>
+            <tr>
+                <th>Exam ID</th>
+                <th>Subject</th>
+                <th>Grade</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <a style=" font-weight: bolder;
+              color: darkgreen; padding-right: 10px;
+               " href="#"><i class="fas fa-download"></i> Download </a>
+                    <a style=" font-weight: bolder;
+             color: rgb(4, 12, 87);
+               " href="#"><i class="fas fa-eye"></i> View </a>
+                </td>
+            </tr>
+            <!-- Add more rows for other quizzes -->
+            </tbody>
+        </table>
+    </div>
+    <div style="margin: 40px;">.</div>
+</section>
+
+<section style="display:none;" id="mtrl" class="home">
+    <h2 class="text" align="center">Course Materials</h2>
+    <div class="quiz-container">
+        <div id="quiz-management">
+            <span style="font-weight:bolder; margin-left: 3%; font-size: 18px; color:rgb(31, 141, 175);">Filter: </span>
+            <select name="Grade" id="materialSelector">
+                <option value="">All</option>
+                <option value="grade9">Grade 9</option>
+                <option value="grade10">Grade 10</option>
+                <option value="grade11">Grade 11</option>
+                <option value="grade12">Grade 12</option>
+            </select>
+            <form>
+                <label style="font-weight: bolder; margin-left: 3%; color: rgb(39, 117, 163);" for="searchInput-m">Enter ID or Subject: </label>
+                <input style="padding: 3px 15px; margin-left: 3%; border-radius: 5px;"  type="search" id="searchInput-m" placeholder="Enter Course ID or Subject Number">
+            </form>
+        </div>
+
+        <table id="courseTable">
+            <thead>
+            <tr>
+                <th>Material ID</th>
+                <th>Subject</th>
+                <th>Title</th>
+                <th>Grade</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="mater : ${materials}">
+                <td th:text="${mater.materialId}"></td>
+                <td th:text="${mater.courseN}"></td>
+                <td th:text="${mater.title}"></td>
+                <td th:text="${mater.classN}"></td>
+                <td>
+                    <a style="font-weight: bolder;
+                            color: darkgreen; padding-right: 10px;
+                  " th:href="@{'materials/' + ${mater.id} + '/download'}"><i class="fas fa-download"></i> Download </a>
+                    <a style="font-weight: bolder;
+                  color: rgb(4, 12, 87);
+                  " href="#"><i class="fas fa-eye"></i> View </a>
+                </td>
+            </tr>
+            <!-- Add more rows for other quizzes -->
+            </tbody>
+        </table>
+    </div>
+    <div style="margin: 40px;">.</div>
+</section>
+
+<!-- UNTOUCHABLE DIV -->
+<div style="display: none;">
+    <label for="orderNo">Material Price:</label>
+    <input type="number" id="orderPrice"  required>
+
+    <label for="orderNo">Material Discount Percent:</label>
+    <input type="number" id="opdPercentage"  max="100" min="0" >
+
+</div>
+<script>
+    function calculateDiscount() {
+        var perc = parseFloat(document.getElementById("opdPercentage").value);
+        var price = parseFloat(document.getElementById("orderPrice").value);
+
+        if (!isNaN(perc) && !isNaN(price) && perc !== 0) {
+            var val = price - (price * perc) / 100;
+            document.getElementById("opdPrice").value = val;
+        } else {
+            document.getElementById("opdPrice").value = price;
+        }
+    }
+    document.getElementById("opdPercentage").addEventListener("input", calculateDiscount);
+    document.getElementById("orderPrice").addEventListener("input", calculateDiscount);
+
+            function home(){
+                var hm = document.getElementById("hm");
+                var ntf = document.getElementById("ntf");
+                var qzs = document.getElementById("qzs");
+                var mtrl = document.getElementById("mtrl");
+                var mrks = document.getElementById("mrks");
+
+                hm.style.display = "";
+                mrks.style.display = "none";
+                ntf.style.display ="none";
+                qzs.style.display ="none";
+                mtrl.style.display ="none";
+              }
+            function marks(){
+
+              var hm = document.getElementById("hm");
+              var ntf = document.getElementById("ntf");
+              var qzs = document.getElementById("qzs");
+              var mtrl = document.getElementById("mtrl");
+              var mrks = document.getElementById("mrks");
+
+              hm.style.display = "none";
+              mrks.style.display = "";
+              ntf.style.display ="none";
+              qzs.style.display ="none";
+              mtrl.style.display ="none";
+            }
+            function quiz(){
+
+              var hm = document.getElementById("hm");
+              var ntf = document.getElementById("ntf");
+              var qzs = document.getElementById("qzs");
+              var mtrl = document.getElementById("mtrl");
+              var mrks = document.getElementById("mrks");
+
+              hm.style.display = "none";
+              mrks.style.display = "none";
+              ntf.style.display ="none";
+              qzs.style.display ="";
+              mtrl.style.display ="none";
+            }
+            function material(){
+
+              var hm = document.getElementById("hm");
+              var ntf = document.getElementById("ntf");
+              var qzs = document.getElementById("qzs");
+              var mtrl = document.getElementById("mtrl");
+              var mrks = document.getElementById("mrks");
+
+              hm.style.display = "none";
+              mrks.style.display = "none";
+              ntf.style.display ="none";
+              qzs.style.display ="none";
+              mtrl.style.display ="";
+            }
+
+            function notification(){
+
+              var hm = document.getElementById("hm");
+              var ntf = document.getElementById("ntf");
+              var qzs = document.getElementById("qzs");
+              var mtrl = document.getElementById("mtrl");
+              var mrks = document.getElementById("mrks");
+
+              hm.style.display = "none";
+              mrks.style.display = "none";
+              ntf.style.display ="";
+              qzs.style.display ="none";
+              mtrl.style.display ="none";
+
+            }
+
+            function createSport(){
+                var cntrSprt = document.getElementById("cntrSprt");
+
+                cntrSprt.style.display = cntrSprt.style.display
+                === ""? "none" : "";
+            }
+            const body = document.querySelector('body'),
+          sidebar = body.querySelector('nav'),
+          toggle = body.querySelector(".toggle"),
+          searchBtn = body.querySelector(".search-box"),
+          modeSwitch = body.querySelector(".toggle-switch"),
+          modeText = body.querySelector(".mode-text");
+
+
+    toggle.addEventListener("click" , () =>{
+        sidebar.classList.toggle("close");
+    })
+
+    searchBtn.addEventListener("click" , () =>{
+        sidebar.classList.remove("close");
+    })
+
+    modeSwitch.addEventListener("click" , () =>{
+        body.classList.toggle("dark");
+
+        if(body.classList.contains("dark")){
+            modeText.innerText = "Light mode";
+        }else{
+            modeText.innerText = "Dark mode";
+
+        }
+    });
+
+    function toggleSemesters() {
+      var semester1 = document.querySelector('.semester-cont-1');
+      var semester2 = document.querySelector('.semester-cont-2');
+      if (semester1.style.display === 'none') {
+          semester1.style.display = 'block';
+          semester2.style.display = 'block';
+      } else {
+          semester1.style.display = 'none';
+          semester2.style.display = 'none';
+      }
+    }
+    document.getElementById('gradeSelector').addEventListener('change', filterQuizzes);
+    document.getElementById('searchInput').addEventListener('input', filterQuizzes);
+
+    function filterQuizzes() {
+        var selectedGrade = document.getElementById('gradeSelector').value.toLowerCase();
+        var searchValue = document.getElementById('searchInput').value.toLowerCase();
+
+        var rows = document.querySelectorAll('#quizTable tbody tr');
+        rows.forEach(function(row) {
+            var examIDCell = row.querySelector('td:nth-child(1)');
+            var subjectCell = row.querySelector('td:nth-child(2)');
+            var gradeCell = row.querySelector('td:nth-child(4)');
+            var examID = examIDCell.textContent.trim().toLowerCase();
+            var subject = subjectCell.textContent.trim().toLowerCase();
+            var grade = gradeCell.textContent.trim().toLowerCase();
+
+            if ((selectedGrade === '' || grade === selectedGrade) && (examID.includes(searchValue) || subject.includes(searchValue))) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+
+    document.getElementById('materialSelector').addEventListener('change', filterMaterial);
+    document.getElementById('searchInput-m').addEventListener('input', filterMaterial);
+
+    function filterMaterial() {
+        var selectedGrade = document.getElementById('materialSelector').value.toLowerCase();
+        var searchValue = document.getElementById('searchInput-m').value.toLowerCase();
+
+        var rows = document.querySelectorAll('#courseTable tbody tr');
+        rows.forEach(function(row) {
+            var examIDCell = row.querySelector('td:nth-child(1)');
+            var subjectCell = row.querySelector('td:nth-child(2)');
+            var gradeCell = row.querySelector('td:nth-child(3)');
+            var examID = examIDCell.textContent.trim().toLowerCase();
+            var subject = subjectCell.textContent.trim().toLowerCase();
+            var grade = gradeCell.textContent.trim().toLowerCase();
+
+            if ((selectedGrade === '' || grade === selectedGrade) && (examID.includes(searchValue) || subject.includes(searchValue))) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+
+</script>
+</body>
+</html>

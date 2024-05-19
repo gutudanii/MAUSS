@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<!-- Coding by CodingLab | www.codinglabweb.com -->
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Admin Dashboard</title>
+    <style>
+        .close-link-1{
+            text-align: right;
+            margin: 1%;
+            text-decoration: none;
+            font-size: 20px;
+            color: red;
+            font-weight: bolder;
+        }
+        .update-material {
+            position: fixed;
+            background-color: white;
+            box-shadow: 10px 20px 100px darkgray;
+            width: 80%;
+            height: 80vh;
+            margin: auto;
+            top: 10%;
+            left: 10%;
+            z-index: 1000;
+            overflow-y: scroll;
+          }
+
+          .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+          }
+
+          .show-modal {
+            display: block;
+          }
+
+          .close-modal {
+            display: none;
+          }
+
+          body.modal-open {
+            overflow: hidden;
+          }
+
+    </style>
+</head>
+<body>
+<nav class="sidebar close">
+    <header>
+        <div class="image-text">
+                <span class="image">
+                    <img th:src="@{/imagee/logo1.png}" alt="">
+                </span>
+
+    </header>
+
+</nav>
+<div class="update-material">
+    <a class="close-link-1" href="#">X</a>
+    <div id="cntrSprt" class="container-create">
+        <h2>Add New Course Material</h2>
+        <form th:action="@{'/' + ${material.id} + '/edit/materials'}" th:object="${material}" method="post" enctype="multipart/form-data">
+            <label for="orderName">Title (Name):</label>
+            <input type="text" id="fName" th:field="*{title}" required>
+
+            <label for="orderNo">Description:</label>
+            <input type="text" id="mName" th:field="*{description}" required>
+
+            <label for="type">Subject (choose):</label>
+            <select style="padding: 2px 70px; font-size: 15px;" id="type" th:field="*{courseN}" required>
+                <option value="Biology">Biology</option>
+                <option value="Chemistry">Chemistry</option>
+                <option value="Physics">Physics</option>
+                <option value="English">English</option>
+                <option value="Sport">Sport</option>
+            </select>
+
+            <label for="type">Class (choose):</label>
+            <select style="padding: 2px 50px;" id="type" th:field="*{classN}" required>
+                <option value="all">All</option>
+                <option value="grade9">Grade 9</option>
+                <option value="grade10">Grade 10</option>
+                <option value="grade11">Grade 11</option>
+                <option value="grade12">Grade 12</option>
+            </select>
+            <label for="img">File:</label>
+            <input type="file" id="img" name="material" accept=".pdf, .doc, .pptx, .">
+            <p>Accepted: .pdf, .doc, .docx, .ppt, .pptx </p>
+            <br>
+            <br>
+            <button type="submit" value="Upload">Create</button>
+        </form>
+    </div>
+</body>
+</html>

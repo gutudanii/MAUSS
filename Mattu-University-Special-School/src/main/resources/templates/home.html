@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" th:href="@{/images/favicon.ico}" />
+
+    <!-- Add CSS styles -->
+    <link rel="stylesheet" th:href="@{/css/landing.css}">
+</head>
+<body>
+<!-- Include Head section -->
+<div class='head'>
+    <div class="container">
+        <div class="logo">
+            <img th:src="@{/images/logo.png}" alt="" />
+        </div>
+        <div class="title">
+            <h1>MATTU UNIVERSITY</h1>
+            <h2>SPECIAL SCHOOL</h2>
+        </div>
+        <div class="social-icons">
+            <a href="twitter_link"><i class="fab fa-twitter"></i></a>
+            <a href="instagram_link"><i class="fab fa-instagram"></i></a>
+            <a href="facebook_link"><i class="fab fa-facebook"></i></a>
+            <a href="telegram_link"><i class="fab fa-telegram"></i></a>
+        </div>
+    </div>
+</div>
+
+<!-- Include Header section -->
+<header>
+    <nav>
+        <ul class="navbar">
+            <li><a class="link" onclick="toggleSection('home')" >Home</a></li>
+            <li><a class="link" onclick="toggleSection('about')" >About Us</a></li>
+            <li><a class="link" onclick="toggleSection('activities')">Activities</a></li>
+            <li><a class="link" onclick="toggleSection('feeds')">Feeds</a></li>
+            <li><a class="link" onclick="toggleSection('contact')" >Contact Us</a></li>
+            <li><a th:href="@{/dashboard}" class="login-buttons"><i class="fas fa-home"></i> Dashboard</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- Include Login section -->
+<div>
+    <div class="login-popup-overlay" style="display: none;">
+        <div class="login-popup-container">
+            <button class="login-close-button">X</button>
+            <h2 class="login-popup-title">Login</h2>
+            <form th:action="@{/users/login}" method="post">
+                <label class="login-label">Username:</label>
+                <input type="text" name="username" placeholder="Username" class="login-input" />
+                <label class="login-label">Password:</label>
+                <input type="password" name="password" placeholder="Password" class="login-input" />
+                <button type="submit" class="login-submit-button">Login</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Contents -->
+<section id="home" class="active">
+    <div class="home">
+        <img th:src="@{/images/home.jpg}" alt="" />
+        <div class="rightside">
+            <h1 class="bold">MATTU UNIVERSITY SPECIAL SCHOOL</h1>
+            <p>Discover endless possibilities, ignite your passion for learning,
+                and embark on a transformative educational experience at Mattu University Special School.
+                Your journey to greatness starts here!</p>
+            <a class='learnmore' onclick="toggleSection('about')">Learn More</a>
+            <div class="footerpart">
+                <span class='fas fa-user-friends'></span>
+                <div class="numbers">
+                    <p>Students: 141</p>
+                </div>
+                <span class="fas fa-chalkboard-teacher"></span>
+                <div class="numbers">
+                    <p>Staff: 30</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="about">
+    <div class="about-section">
+        <div class="about-content">
+            <h1>BACKGROUND</h1>
+            <p>The Mattu University Special School (MaUSS), founded in 2013 (E.C.) and expanded in 2020
+                (G.C.). MaUSS operates under Mattu University, providing specialized education for students in
+                grades 9-12. The school's commitment to academic excellence is evident in its strict entrance
+                exams, where students are selected based on their performance in the 8th-grade school or ministry
+                exams. Since its establishment with an initial enrollment of 41 students, MaUSS has grown,
+                currently accommodating 141 students. This growth is a testament to the school's dedication to
+                bring up top-tier talent and promote a learning environment where students thrive.</p>
+        </div>
+        <div class="about-image">
+            <img src="/images/home.jpg" alt="About Us" />
+        </div>
+    </div>
+    <div class="container-12">
+        <div class="box-12">
+            <img src="/images/person1.jpg" alt="Person" />
+            <h2>Dr. Kabada Tafarra Nagaso</h2>
+            <p>kabadanagaso@gmail.com</p>
+            <p>Director</p>
+        </div>
+        <div class="box-12">
+            <img src="/images/person2.jpg" alt="Person" />
+            <h2>Dr. Bacarra Dagale Fayisa</h2>
+            <p>bacobaco@gmail.com</p>
+            <p>Academic Vice Director</p>
+        </div>
+        <div class="box-12">
+            <img src="/images/person3.jpg" alt="Person" />
+            <h2>Dr. Badhasa Wadajo Tafara</h2>
+            <p>badhasawakane@gmail.com</p>
+            <p>Adminstrative Vice Director</p>
+        </div>
+        <div class="box-12">
+            <img src="/images/person4.jpg" alt="Person" />
+            <h2>Wakane Tafarra Badhasa</h2>
+            <p>wake20212@gmail.com</p>
+            <p>Department Head of Natural Science</p>
+        </div>
+        <div class="box-12">
+            <img src="/images/person1.jpg" alt="Person" />
+            <h2>Oliqa Tafarra Wakane</h2>
+            <p>oliqabaredu@gmail.com</p>
+            <p>Department Head of Social Science</p>
+        </div>
+        <div class="box-12">
+            <img src="/images/person3.jpg" alt="Person" />
+            <h2>Tammiru Nagash Dowi</h2>
+            <p>tammeman2024@gmail.com</p>
+            <p>Students President</p>
+        </div>
+    </div>
+</section>
+
+<section id="activities">
+    <div class="activities-page">
+        <div class="image-container">
+            <button class="prev-btn" onclick="handlePrevImage()">&#60;</button>
+            <img src="/images/activity/act1.jpg" alt="Activity" />
+            <img class="current-image" src="/images/activity/act2.jpg" alt="Activity" />
+            <img src="/images/activity/act3.jpg" alt="Activity" />
+            <button class="next-btn" onclick="handleNextImage()">&#62;</button>
+        </div>
+        <hr class="hr-line" />
+        <p class='p-act'> "
+            Teams are an integral part of high school life, providing students with opportunities for collaboration,
+            leadership, and personal growth. Whether it's sports teams, academic clubs, or community service groups,
+            participating in a team fosters camaraderie and teaches valuable life skills.
+            "</p>
+        <hr class="hr-line" />
+        <h2>Popular Activities:</h2>
+        <ul class="activity-list">
+            <li class="activity-item">
+                <div class="activity-icon-container">
+                    <i class="fas fa-futbol activity-icon"></i>
+                </div>
+                Soccer Team
+            </li>
+            <li class="activity-item">
+                <div class="activity-icon-container">
+                    <i class="fas fa-microphone activity-icon"></i>
+                </div>
+                Music Band
+            </li>
+            <li class="activity-item">
+                <div class="activity-icon-container">
+                    <i class="fas fa-users activity-icon"></i>
+                </div>
+                Debate Club
+            </li>
+            <li class="activity-item">
+                <div class="activity-icon-container">
+                    <i class="fas fa-book activity-icon"></i>
+                </div>
+                Book Club
+            </li>
+            <li class="activity-item">
+                <div class="activity-icon-container">
+                    <i class="fas fa-palette activity-icon"></i>
+                </div>
+                Art Club
+            </li>
+            <li class="activity-item">
+                <div class="activity-icon-container">
+                    <i class="fas fa-heart activity-icon"></i>
+                </div>
+                Community Service Group
+            </li>
+        </ul>
+    </div>
+</section>
+
+<section id="feeds">
+    <div class="container-feed">
+        <!-- Announcement Section -->
+        <div class="ann-feed">
+            <h2>ANNOUNCEMENTS</h2>
+            <div class="ann-container-box" id="announcementsContainer"></div>
+            <div class="pagination" id="announcementPagination">
+                <button class="prev-btn-announcement"><i class="fas fa-angle-left"></i></button>
+                <span class="announcement-page">1</span>
+                <button class="next-btn-announcement"><i class="fas fa-angle-right"></i></button>
+            </div>
+        </div>
+        <!-- Event Section -->
+        <div class="event-feed">
+            <h2>EVENTS</h2>
+            <div class="event-container-box" id="eventsContainer"></div>
+            <div class="pagination" id="eventPagination">
+                <button class="prev-btn-event"><i class="fas fa-angle-left"></i></button>
+                <span class="event-page">1</span>
+                <button class="next-btn-event"><i class="fas fa-angle-right"></i></button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="contact">
+    <div class="container-contact">
+        <div class="content-contact">
+            <div class="left-side-contact">
+                <div class="address details">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div class="topic-contact">Address</div>
+                    <div class="text-one-contact"> 8H95+479, Metu</div>
+                    <div class="text-two-contact">Oromia, Ethiopia</div>
+                </div>
+                <div class="phone details">
+                    <i class="fas fa-phone-alt"></i>
+                    <div class="topic-contact">Phone</div>
+                    <div class="text-one-contact">+251 921 5647</div>
+                    <div class="text-two-contact">+251 643 5678</div>
+                </div>
+                <div class="email details">
+                    <i class="fas fa-envelope"></i>
+                    <div class="topic-contact">Email</div>
+                    <div class="text-one-contact">mauss@meu.edu.et</div>
+                    <div class="text-two-contact">infomauss@meu.edu.et</div>
+                </div>
+            </div>
+            <div class="right-side-contact">
+                <div class="topic-text-contact">Send us a message</div>
+                <p>If you have any inquries or question about us, also comment or sudjestion
+                    we are happy to hear from you and we will get back to you with your question with in
+                    short time !
+                </p>
+                <form action="/">
+                    <div class="input-box-contact">
+                        <input type="text" placeholder="Enter your name" />
+                    </div>
+                    <div class="input-box-contact">
+                        <input type="text" placeholder="Enter your email" />
+                    </div>
+                    <div class="input-box-contact">
+                        <input type="text" placeholder="Enter your subject" />
+                    </div>
+                    <div class="input-box message-box">
+                        <textarea name="" id="" placeholder="...msg" cols="30" rows="10" required></textarea>
+                    </div>
+                    <div class="button-contact">
+                        <input type="button" value="Send Now" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-links">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="/home">Home</a></li>
+                <li><a href="/about">About Us</a></li>
+                <li><a href="/feeds">Feeds</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Contact</h3>
+            <ul>
+                <li>+251 99 412 0201</li>
+                <li>+251 99 121 1291</li>
+                <li>8H95+479, Metu</li>
+                <li><a class="link_to_contact" href="/contact">Send us message</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <img src="/images/footer.png" alt="" />
+        </div>
+        <div class="subscribe">
+            <h3>Subscribe to Our Newsletter</h3>
+            <form>
+                <input type="email" placeholder="Enter your email" />
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </div>
+    <div class="copyright">
+        <p>&copy; 2024 Mattu University Special School. All rights reserved.</p>
+    </div>
+</footer>
+
+
+<!-- Add FontAwesome for icons -->
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<!-- Include JavaScript file -->
+<script src="/js/landing.js"></script>
+</body>
+</html>
