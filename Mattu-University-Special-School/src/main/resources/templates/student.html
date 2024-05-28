@@ -176,12 +176,12 @@
     <div class="text">Announcement</div>
     <!-- <br> -->
     <div class="main-content">
-        <div class="notifications">
+        <div th:each=" ann : ${getAnn}" class="notifications">
             <div class="notification-item">
                 <i class="fas fa-envelope"></i>
                 <div class="notification-info">
-                    <h3>Registration is started</h3>
-                    <p>please come to registrar office and get registered</p>
+                    <h3 th:text="${ann.title}">Registration is started</h3>
+                    <p th:text="${ann.message}">please come to registrar office and get registered</p>
                     <span class="notification-time">1 sec ago</span>
                 </div>
             </div>

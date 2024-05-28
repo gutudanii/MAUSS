@@ -8,11 +8,110 @@
 
     <!----======== CSS ======== -->
     <link rel="stylesheet" th:href="@{/css/styles.css}">
-
     <!----===== Boxicons CSS ===== -->
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Admins Dashboard</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+        .announcement-box {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            max-width: 500px;
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+        .announcement-box h2 {
+            margin-top: 0;
+        }
+        .announcement-box label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .announcement-box input[type="text"],
+        .announcement-box textarea,
+        .announcement-box select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .announcement-box input[type="file"] {
+            margin-top: 5px;
+        }
+        .announcement-box button {
+            background-color: darkgreen;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .announcement-box button:hover {
+            background-color: #005700;
+        }
+        .announcement-list {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .announcement-item {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            width: 300px;
+            box-sizing: border-box;
+        }
+        .announcement-item img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+        .announcement-item .actions {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        .announcement-item .actions button {
+            background-color: #ff5722;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .announcement-item .actions button:hover {
+            background-color: #e64a19;
+        }
+        .announcement-item .actions .update-btn {
+            background-color: #2196f3;
+        }
+        .announcement-item .actions .update-btn:hover {
+            background-color: #1976d2;
+        }
+    </style>
 </head>
 <body>
 <nav class="sidebar close">
@@ -58,6 +157,12 @@
                     <a  onclick="system()">
                         <i class='bx bx-cog icon' ></i>
                         <span class="text nav-text">System</span>
+                    </a>
+                </li>
+                <li class="nav-link">
+                    <a  onclick="announcement()">
+                        <i class='bx bx-bell icon' ></i>
+                        <span class="text nav-text">Announcement</span>
                     </a>
                 </li>
             </ul>
@@ -126,7 +231,8 @@
     <div class="main-container">
         <div class="left-side">
             <h3 style="color:darkgreen" class="update-heading">Website Informations</h3>
-            <img style="display: block; margin: 0 auto; width: 20%; height: auto;" src="/images/logo.png" alt="">
+            <img style="display: block; margin: 0 auto; width: 20%; height: auto;"
+                 src="/images/logo.png" alt="">
             <div class="update-info">
                 <div class="update-item">
                     <a style="text-decoration: none; " href="#">
@@ -163,38 +269,30 @@
                     <span> MaUSS</span>
                 </div>
             </div>
-            <a onclick="viewLeft()"
-               style="text-decoration: none; cursor: pointer;
-      color:white; width: 15%; padding:3px; border-radius: 5px;
-        background-color:darkgreen;
-      " class="update-link"><i class="fas fa-pencil-alt"></i> Update</a>
+            <!--            <a onclick="viewLeft()"-->
+            <!--               style="text-decoration: none; cursor: pointer;-->
+            <!--      color:white; width: 15%; padding:3px; border-radius: 5px;-->
+            <!--        background-color:darkgreen;-->
+            <!--      " class="update-link"><i class="fas fa-pencil-alt"></i> Update</a>-->
         </div>
         <div class="right-side">
             <h3 class="admin-info-heading">Administrators Information</h3>
             <div class="admin-info">
-                <div class="admin-item">
-                    <img src="/images/person2.jpg" alt="Admin Image">
+                <div th:each="admin : ${getAdministrator}" class="admin-item">
+                    <img th:src="@{/admins/image/{id}(id=${admin.id})}" alt="Admin Image">
                     <div class="info">
-                        <span class="name">John Doe</span>
-                        <span class="email">john@example.com</span>
-                        <span class="position">Manager</span>
+                        <span th:text="${admin.fullName}" class="name"></span>
+                        <span th:text="${admin.email}" class="email"></span>
+                        <span th:text="${admin.position}" class="position"></span>
+                        <a style="text-decoration:none; color:red;" th:href="@{/admins/delete/{id}(id=${admin.id})}">Delete</a>
                     </div>
                 </div>
-                <div class="admin-item">
-                    <img src="/images/person1.jpg" alt="Admin Image">
-                    <div class="info">
-                        <span class="name">Jane Smith</span>
-                        <span class="email">jane@example.com</span>
-                        <span class="position">Supervisor</span>
-                    </div>
-                </div>
-                <!-- Add more admin items here -->
             </div>
             <a onclick="viewRight()"
                style="text-decoration: none; cursor: pointer;
       color:white; width: 15%; padding:3px; border-radius: 5px;
         background-color:darkgreen;
-      " class="update-link"><i class="fas fa-pencil-alt"></i> Update</a>
+      " class="update-link"><i class="fas fa-plus"></i> Add</a>
         </div>
     </div>
 
@@ -239,33 +337,36 @@
         </div>
         <div style="display: none;" id="right-one" class="right-side">
             <h3 class="admin-info-heading">Administrators Information</h3>
-            <form class="update-form">
+            <form th:action="@{/administrators/save}" th:object="${administrator}" method="post" enctype="multipart/form-data" class="update-form">
                 <div class="admin-info">
                     <div class="admin-info-item">
                         <label for="admin-name">Name:</label>
-                        <input type="text" id="admin-name" name="admin-name">
+                        <input th:field="*{fullName}" type="text" id="admin-name" name="admin-name">
                     </div>
                     <div class="admin-info-item">
                         <label for="admin-email">Email:</label>
-                        <input type="email" id="admin-email" name="admin-email">
+                        <input th:field="*{email}" type="email" id="admin-email" name="admin-email">
                     </div>
                     <div class="admin-info-item">
                         <label for="admin-position">Position:</label>
-                        <select id="admin-position" name="admin-position">
-                            <option value="manager">Manager</option>
-                            <option value="supervisor">Supervisor</option>
-                            <option value="coordinator">Coordinator</option>
+                        <select th:field="*{position}" id="admin-position" name="admin-position">
+                            <option value="Director">Director</option>
+                            <option value="Administrative Vice Director">Administrative Vice Director</option>
+                            <option value="Academic Vice Director">Academic Vice Director</option>
+                            <option value="Department Head of Natural Science">Department Head of Natural Science</option>
+                            <option value="Department Head of Social Science">Department Head of Social Science</option>
+                            <option value="Students President">Students President</option>
                         </select>
                     </div>
                     <div class="admin-info-item">
                         <label for="admin-image">Image:</label>
-                        <input type="file" id="admin-image" name="admin-image">
+                        <input type="file" id="admin-image" name="image" accept=".png, jpeg, jpg">
                     </div>
                 </div>
                 <div class="form-group">
                     <button style="padding: 5px 10px; color: white; border-radius: 5px;
         font-weight: bolder; border: none;
-        background-color:rgb(15, 15, 170);" type="submit">Update</button>
+        background-color:rgb(15, 15, 170);" type="submit">+ Add</button>
                 </div>
             </form>
         </div>
@@ -273,7 +374,52 @@
 
     <div style="margin: 40px;">.</div>
 </section>
+<section style="display:none;" id="ann" class="home">
+    <div style="margin: 4%; margin-top: 6%;"><a onclick="viewAnn()" class="btn btn-view"><i class="fas fa-plus"></i> Post</a></div>
+    <div id="annWrap" style="display:none; margin: 4%; margin-left: 30%;" class="announcement-box">
+        <h2>Create Announcement</h2>
+        <form th:action="@{/announcement/save}" method="post" th:object="${announcement}" enctype="multipart/form-data" id="announcementForm">
+            <label for="title">Title</label>
+            <input th:field="*{title}" type="text" id="title" name="title" required>
 
+            <label for="message">Message</label>
+            <textarea th:field="*{message}" id="message" name="message" rows="5" required></textarea>
+
+            <label for="target">Target(Audience)</label>
+            <select id="target" name="target" th:field="*{target}" required>
+                <option value="all">Select All</option>
+                <option value="student">Students</option>
+                <option value="teacher">Teachers</option>
+            </select>
+
+            <label for="image">Image (PNG, JPEG, JPG)</label>
+            <input type="file" id="image" name="image" accept=".png, .jpeg, .jpg" required>
+
+            <button type="submit">Post Announcement</button>
+        </form>
+    </div>
+    <div th:each=" ann : ${getAnn}">
+    <div class="announcement-list" id="announcementList">
+        <div id="annViewOne" style="display:none; position: fixed; margin-left: 25%; z-index: 1; border-radius: 10px; width: 40%; max-height: 350px; background-color: rgb(252, 252, 252); color: black; overflow-y: auto; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+            <p style="margin: 3%; color: red; cursor: pointer;" onclick="closeAnn()">Close</p>
+            <p style="margin: 3%;" th:text="${ann.message}"></p>
+        </div>
+        <div class="announcement-item">
+            <br><br>
+            <h3 th:text="${ann.title}"></h3>
+<!--            <p th:text="${ann.message}"></p>-->
+            <p style="color: blue;" onclick="closeAnn()">View Desc...</p>
+            <p th:text="${ann.target}"><strong>Target:</strong></p>
+            <img th:src="@{/announcement/image/{id}(id=${ann.id})}" alt="Announcement Image">
+            <div class="actions">
+                <a th:href="@{/}" class="update-btn">Update</a>
+                <a th:href="@{/delete/announcement/{id}(id=${ann.id})}" class="delete-btn">Delete</a>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div style="margin: 40px;">.</div>
+</section>
 <section style="display:none;" id="usr" class="home">
     <div class="text">Users</div>
     <div style="margin: 20px;"><a onclick="createSport()" class="btn btn-view"><i class="fas fa-plus"></i> Add Users</a></div>
@@ -346,22 +492,22 @@
             </tr>
             </thead>
             <tbody>
-<!--            <tr th:each="user, iterStat : ${users}">-->
-<!--                <td th:text="${iterStat.count}"></td>-->
-<!--                <td th:text="${user.fName + ' ' + user.mName + ' ' + user.lName}"></td>-->
-<!--                <td th:text="${user.username}"></td>-->
-<!--                <td th:text="${user.email}"></td>-->
-<!--                <td th:text="${user.uniqueId}"></td>-->
-<!--                <td th:text="${user.role}"></td>-->
-<!--                <td>-->
-<!--                    <button class="update-btn" onclick="updateUser(${user.id})">-->
-<!--                        <i class="fas fa-pencil-alt"></i> Update-->
-<!--                    </button>-->
-<!--                    <button class="delete-btn" onclick="deleteUser(${user.id})">-->
-<!--                        <i class="fas fa-trash"></i> Delete-->
-<!--                    </button>-->
-<!--                </td>-->
-<!--            </tr>-->
+            <!--            <tr th:each="user, iterStat : ${users}">-->
+            <!--                <td th:text="${iterStat.count}"></td>-->
+            <!--                <td th:text="${user.fName + ' ' + user.mName + ' ' + user.lName}"></td>-->
+            <!--                <td th:text="${user.username}"></td>-->
+            <!--                <td th:text="${user.email}"></td>-->
+            <!--                <td th:text="${user.uniqueId}"></td>-->
+            <!--                <td th:text="${user.role}"></td>-->
+            <!--                <td>-->
+            <!--                    <button class="update-btn" onclick="updateUser(${user.id})">-->
+            <!--                        <i class="fas fa-pencil-alt"></i> Update-->
+            <!--                    </button>-->
+            <!--                    <button class="delete-btn" onclick="deleteUser(${user.id})">-->
+            <!--                        <i class="fas fa-trash"></i> Delete-->
+            <!--                    </button>-->
+            <!--                </td>-->
+            <!--            </tr>-->
             </tbody>
         </table>
     </div>
@@ -396,8 +542,21 @@
                 var hm = document.getElementById("hm");
                 var usr = document.getElementById("usr");
                 var sys = document.getElementById("sys");
+                var ann = document.getElementById("ann");
 
+                ann.style.display = "none";
                 hm.style.display = "";
+                sys.style.display ="none";
+                usr.style.display ="none";
+            }
+                function announcement(){
+                var hm = document.getElementById("hm");
+                var usr = document.getElementById("usr");
+                var sys = document.getElementById("sys");
+                var ann = document.getElementById("ann");
+
+                ann.style.display = "";
+                hm.style.display = "none";
                 sys.style.display ="none";
                 usr.style.display ="none";
             }
@@ -405,7 +564,9 @@
               var hm = document.getElementById("hm");
               var usr = document.getElementById("usr");
               var sys = document.getElementById("sys");
+              var ann = document.getElementById("ann");
 
+              ann.style.display = "none";
               hm.style.display = "none";
               sys.style.display ="";
               usr.style.display ="none";
@@ -414,7 +575,9 @@
               var hm = document.getElementById("hm");
               var usr = document.getElementById("usr");
               var sys = document.getElementById("sys");
+              var ann = document.getElementById("ann");
 
+              ann.style.display = "none";
               hm.style.display = "none";
               sys.style.display ="none";
               usr.style.display ="";
@@ -424,6 +587,7 @@
               var left = document.getElementById("left-one");
               left.style.display = left.style.display === ""? "none" : "";
             }
+
             function viewRight(){
               var right = document.getElementById("right-one");
               right.style.display = right.style.display === ""? "none" : "";
@@ -431,6 +595,18 @@
             }
             function createSport(){
                 var cntrSprt = document.getElementById("cntrSprt");
+
+                cntrSprt.style.display = cntrSprt.style.display
+                === ""? "none" : "";
+            }
+           function closeAnn(){
+                var cntrSprt = document.getElementById("annViewOne");
+
+                cntrSprt.style.display = cntrSprt.style.display
+                === ""? "none" : "";
+            }
+              function viewAnn(){
+                var cntrSprt = document.getElementById("annWrap");
 
                 cntrSprt.style.display = cntrSprt.style.display
                 === ""? "none" : "";
@@ -486,7 +662,7 @@
                         '<td>' + user.uniqueId + '</td>' +
                         '<td>' + user.role + '</td>' +
                         '<td>' +
-                        '<button class="update-btn" onclick="updateUser(' + user.id + ')"><i class="fas fa-pencil-alt"></i> Update</button>' +
+                        '<a class="update-btn" href="/users/update/'+ user.uniqueId +'"><i class="fas fa-pencil-alt"></i> Update</a>' +
                         '<button class="delete-btn" onclick="deleteUser(' + user.id + ')"><i class="fas fa-trash"></i> Delete</button>' +
                         '</td>' +
                         '</tr>';

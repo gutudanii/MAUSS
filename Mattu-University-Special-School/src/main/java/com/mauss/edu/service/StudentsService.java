@@ -10,4 +10,6 @@ public interface StudentsService {
     void saveStudent(Students students);
     void deleteStudentById(Long id);
     List<Students> getAllStudents();
+    Students updateStudents(Students students, String uniqueId);
+
 }

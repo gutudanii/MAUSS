@@ -7,4 +7,6 @@ import org.springframework.stereotype.Service;
 public interface ClassesService {
 
     void saveClasses(Classes classes);
+    Classes end(String acadId);
+    Classes notEnd(String acadId);
 }

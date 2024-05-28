@@ -28,15 +28,12 @@ public class Users implements UserDetails {
     private String dob;
     private String address;
     private Long phone;
+    private String gender;
     private String email;
     private String username; //TODO: Auto generated
     private String password; //TODO: Auto generated
-    private String e_contactFName;
-    private Long e_contactPhone;
-    private String e_contactAddress;
     private String role; //TODO: Drop-down menu choose from limited roles
     private boolean is_active; //TODO: on first registry it's default input is True
-//    private byte[] userPic;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

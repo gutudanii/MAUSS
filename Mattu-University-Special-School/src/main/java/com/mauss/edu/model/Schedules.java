@@ -23,11 +23,13 @@ public class Schedules {
 
     private String schId; //todo: this is auto generated like ScheduleId
     private String acaId; //todo: Academic ID
+    private String teachName;
     private String classId; //todo: class Id
     private String schedulerId; //todo: the scheduled person id
     private String courseId; //todo: course Id from courses classes
+    private String courseName;
     private String schType; //todo: Schedules type may be like special schedules // like may be temporary or tutorial or any
-    private DayOfWeek dayOfWeek; //todo: Monday ... Tuesday
+    private String dayOfWeek; //todo: Monday ... Tuesday
     private String startTime;
     private String endTime;
     private String teachId; //todo: Assigned Teacher Id

@@ -147,34 +147,38 @@
         </div>
         <div class="filter">
             <h2>Filter: </h2>
-            <select name="Role" id="iddd">
+            <select name="Role" id="roleSelect">
                 <option value="">All</option>
-                <option value="">Teachers</option>
-                <option value="">Students</option>
+                <option value="teacher">Teachers</option>
+                <option value="student">Students</option>
             </select>
-            <input type="search" id="srchEnr" placeholder="Enter Id Number">
+            <input type="search" id="searchInput" placeholder="Enter Id Number">
         </div>
-        <table>
+        <table id="userTableContainer">
             <thead>
             <tr>
                 <th>No</th>
                 <th>Name</th>
                 <th>Username</th>
+                <th>Unique ID</th>
                 <th>Email</th>
                 <th>Role</th>
                 <th>Action</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="users : ${users}">
-                <td>1</td>
+            <tr th:each="users , iterStat: ${users}">
+                <td th:text="${iterStat.count}"></td>
                 <td th:text="''+${users.fName}+' '+ ${users.mName}+ ' ' + ${users.lName}"></td>
                 <td th:text="${users.username}"></td>
+                <td th:text="${users.uniqueId}"></td>
                 <td th:text="${users.email}"></td>
                 <td th:text="${users.role}"></td>
                 <td>
-                    <button class="update-btn"><i class="fas fa-pencil-alt"></i> Update</button>
-                    <button class="delete-btn"><i class="fas fa-trash"></i> Delete</button>
+                    <a th:if="${users.role != 'student'}" th:href="@{/users/update/{uniqueId}(uniqueId=${users.uniqueId})}"
+                       class="update-btn"><i class="fas fa-pencil-alt"></i> Update</a>
+                    <a th:if="${users.role == 'student'}" th:href="@{/students/update/{uniqueId}(uniqueId=${users.uniqueId})}"
+                       class="update-btn"><i class="fas fa-pencil-alt"></i> Update</a>
                 </td>
             </tr>
 
@@ -287,13 +291,15 @@
             <label for="year">Position Due Date(Expire)</label>
             <input type="datetime-local" id="year" th:field="*{positionExp}" placeholder="2024" required>
             <br>
-            <div th:each="tchs : ${teachers}">
-                <input type="hidden" th:field="*{uniqueId}" th:value="${tchs.uniqueId}" />
-            </div>
+            <label for="stream">Choose Stream:</label>
+                    <select id="stream" th:field="*{stream}">
+                        <option value="Natural">Natural</option>
+                        <option value="Social" >Social</option>
+                    </select>
             <label for="types">Choose Instructor:</label>
-            <select style="padding: 2px 50px;" id="types" th:field="*{teachName}" required>
+            <select style="padding: 2px 50px;" id="types" th:field="*{uniqueId}" required>
                 <option value="#">Select</option>
-                <option th:each="tchs : ${teachers}"  th:text="'Mr. ' + ${tchs.fName} + ' ' + ${tchs.uniqueId}" th:value="${tchs.fName} + ' ' + ${tchs.mName} + ' ' + ${tchs.lName}"></option>
+                <option th:each="tchs : ${teachers}"  th:text="'Mr. ' + ${tchs.fName} + ' ' + ${tchs.uniqueId}" th:value="${tchs.uniqueId}"></option>
             </select>
             <br>
             <br>
@@ -303,37 +309,34 @@
     <div class="container-1212">
         <div style="height: auto;  background: linear-gradient(to right, #575856, #589c61);" class="box1">
             <h2>NATURAL SCIENCE</h2>
-            <div class="box-12">
-                <img style="border-radius:10px; margin-left:31%; width:200px; height:200px;" src="/images/person4.jpg" alt="Person" />
-                <h2>Wakane Tafarra Badhasa</h2>
-                <p  align="center">wake20212@gmail.com</p>
-                <p  align="center">Department Head of Natural Science</p>
+            <div th:each="natDep : ${naturalDep}" class="box-12">
+                <img style="border-radius:10px; margin-left:31%; width:200px; height:200px;" src="/images/usicon.png" alt="Person" />
+                <h2 th:text="${natDep.teachName}" ></h2>
+                <p th:text="${natDep.uniqueId}"  align="center"></p>
+                <p th:text="'Department of ' + ${natDep.stream} + ' Science' " align="center"></p>
+            <div style="margin: 20px;">
+                <a style=" background-color:rgb(95, 6, 6);" th:href="@{/disable/department/{id}(id=${natDep.id})}" class="btn btn-view">
+                    <i class="fas fa-trash"></i> Disable</a>
             </div>
-            <div style="margin: 20px;"><a style=" background-color:rgb(168, 144, 3);" href="#" class="btn btn-view">
-                <i class="fas fa-trash"></i> Revoke</a>
-                <a style=" background-color:rgb(95, 6, 6);" href="#" class="btn btn-view">
-                    <i class="fas fa-close"></i> Disable</a>
             </div>
         </div>
 
         <div style="height: auto;  background: linear-gradient(to right, #575856, #589c61);" class="box1">
             <h2>SOCIAL SCIENCE</h2>
-            <div class="box-12">
-                <img style="border-radius:10px; margin-left:31%; width: 200px; height:200px;" src="/images/person1.jpg" alt="Person" />
-                <h2>Oliqa Tafarra Wakane</h2>
-                <p align="center">oliqabaredu@gmail.com</p>
-                <p align="center">Department Head of Social Science</p>
+            <div th:each="natDep : ${socialDep}" class="box-12">
+                <img style="border-radius:10px; margin-left:31%; width:200px; height:200px;" src="/images/usicon.png" alt="Person" />
+                <h2 th:text="${natDep.teachName}" ></h2>
+                <p th:text="${natDep.uniqueId}"  align="center"></p>
+                <p th:text="'Department of ' + ${natDep.stream} + ' Science' " align="center"></p>
+            <div style="margin: 20px;">
+                <a style=" background-color:rgb(95, 6, 6);" th:href="@{/disable/department/{id}(id=${natDep.id})}" class="btn btn-view">
+                    <i class="fas fa-trash"></i> Disable</a>
             </div>
-            <div style="margin: 20px;"><a style=" background-color:rgb(168, 144, 3);" href="#" class="btn btn-view">
-                <i class="fas fa-trash"></i> Revoke</a>
-                <a style=" background-color:rgb(95, 6, 6);" href="#" class="btn btn-view">
-                    <i class="fas fa-close"></i> Disable</a>
             </div>
         </div>
     </div>
     <div style="margin: 40px;">.</div>
 </section>
-
 <section id="crses" class="home">
     <h2 class="text" align="center">Manage Academic & Courses</h2>
 
@@ -398,12 +401,22 @@
                     <div class="marks-info-12">
                         <h3 th:text="${acad.year}">2023</h3>
                         <p th:text="'Semester ' + ${acad.semester}">Semester I</p>
+                        <p th:if="${acad.end == false}" style="color:rgb(248, 255, 254); padding: 0px 12px;
+                    border-radius: 5px;
+                    background-color: rgb(5, 129, 113);">Started</p>
+                        <p th:if="${acad.end == true}" style="color:rgb(248, 255, 254); padding: 0px 12px;
+                    border-radius: 5px;
+                    background-color: rgb(106, 129, 5);">Ended</p>
                     </div>
                     <p style=" margin-left: 5%; font-weight: bolder;">Grade: </p>
                     <span th:each="clsgrade : ${classesByAcademicId[acad.academicId]}" style="display:inline-flex; margin: 1%;">
             <br>
             <p th:text="${clsgrade.classNo + clsgrade.section}" style="border:1px solid blue; padding: 2px 10px; border-radius: 5px; margin-left: 2%; background-color: blue; color: white">9A</p>
         </span>
+                    <a th:if="${acad.end == true}" style="background-color: rgb(10, 105, 18); color:white;
+                      text-decoration:none; padding: 3px 10px; border-radius: 5px;" th:href="@{/academic/NotEnd/{id}(id=${acad.academicId})}">+ Start</a>
+                    <a th:if="${acad.end == false}" style="background-color: rgb(105, 21, 10); color:white;
+                      text-decoration:none; padding: 3px 10px; border-radius: 5px;" th:href="@{/academic/end/{id}(id=${acad.academicId})}">X End</a>
                 </div>
                 <hr>
             </div>
@@ -444,17 +457,17 @@
                 <hr style="margin-top: 1%;">
                 <h3 style="margin: 2%; color: darkblue; ">GRADE 9 </h3>
                 <div
-                        style="display: flex; flex-wrap: wrap; "
+                        style="display: inline-flex; flex-wrap: wrap; "
                         th:each="crss: ${grade9lst}">
                     <p style="border:1px solid white; padding: 2px 10px;
                      border-radius: 5px; margin-left: 2%;
                       background-color: rgb(8, 134, 35); color: white"
-                    th:text="${crss.courseName}">Biology</p>
+                    th:text="${crss.courseName}"></p>
                 </div>
                 <hr style="margin-top: 2%;">
                 <h3 style="margin: 2%; color: darkblue; ">GRADE 10 </h3>
                 <div
-                        style="display: flex; flex-wrap: wrap; "
+                        style="display: inline-flex; flex-wrap: wrap; "
                         th:each="crss: ${grade10lst}">
                     <p style="border:1px solid white; padding: 2px 10px;
                      border-radius: 5px; margin-left: 2%;
@@ -465,7 +478,7 @@
                 <h3 style="margin: 2%; color: darkblue; ">GRADE 11 </h3>
 
                 <div
-                        style="display: flex; flex-wrap: wrap; "
+                        style="display: inline-flex; flex-wrap: wrap; "
                         th:each="crss: ${grade11lst}">
                     <p style="border:1px solid white; padding: 2px 10px;
                      border-radius: 5px; margin-left: 2%;
@@ -475,7 +488,7 @@
                 <hr style="margin-top: 2%;">
                 <h3 style="margin: 2%; color: darkblue; ">GRADE 12 </h3>
                 <div
-                        style="display: flex; flex-wrap: wrap; "
+                        style="display: inline-flex; flex-wrap: wrap; "
                         th:each="crss: ${grade12lst}">
                     <p style="border:1px solid white; padding: 2px 10px;
                      border-radius: 5px; margin-left: 2%;
@@ -536,13 +549,13 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="users : ${studentsList}">
-            <td>1</td>
-            <td th:text="''+${users.fName}+' '+ ${users.mName}+ ' ' + ${users.lName}">Gutu Daniel Geleta</td>
-            <td th:text="${users.username}">gutudani</td>
-            <td th:text="${users.uniqueId}">STU-12/2024</td>
-            <td>Grade 10</td>
-            <td th:text="${users.role}">E</td>
+        <tr th:each="users , iterStat : ${studentsList}">
+            <td th:text="${iterStat.count}"></td>
+            <td th:text="''+${users.fName}+' '+ ${users.mName}+ ' ' + ${users.lName}"></td>
+            <td th:text="${users.username}"></td>
+            <td th:text="${users.uniqueId}"></td>
+            <td></td>
+            <td th:text="${users.role}"></td>
             <td>
                 <a href="#"  style="text-decoration:none;" class="update-btn"><i class="fas fa-file alt"></i> Generate Certificate</a>
             </td>
@@ -605,6 +618,12 @@
                 crses.style.display ="none";
                 crftAndRepo.style.display = "none";
             }
+                 function assignUsers(){
+          var cntrSprt = document.getElementById("assignUsers");
+
+          cntrSprt.style.display = cntrSprt.style.display
+          === ""? "none" : "";
+      }
             function manages(){
                 var usrs = document.getElementById("usrs");
                 var mrks = document.getElementById("mrks");
@@ -715,6 +734,38 @@
 
         }
     });
+
+  document.addEventListener('DOMContentLoaded', function() {
+       // Your JavaScript code here
+       document.getElementById('roleSelect').addEventListener('change', filterUsers);
+       document.getElementById('searchInput').addEventListener('input', filterUsers);
+   });
+
+   document.getElementById('roleSelect').addEventListener('change', filterUsers);
+   document.getElementById('searchInput').addEventListener('input', filterUsers);
+
+   function filterUsers() {
+       var selectedRole = document.getElementById('roleSelect').value;
+       var searchValue = document.getElementById('searchInput').value.toLowerCase();
+
+       var rows = document.querySelectorAll('#userTableContainer tbody tr');
+       rows.forEach(function(row) {
+           var idCell = row.querySelector('td:nth-child(4)');
+           var usernm= row.querySelector('td:nth-child(3)');
+           var roleCell = row.querySelector('td:nth-child(6)');
+           var id = idCell.textContent.trim().toLowerCase();
+           var usrnm = usernm.textContent.trim().toLowerCase();
+           var role = roleCell.textContent.trim().toLowerCase();
+
+           if ((selectedRole === '' || role === selectedRole) && (id.includes(searchValue) || usrnm.includes(searchValue))) {
+               row.style.display = '';
+           } else {
+               row.style.display = 'none';
+           }
+       });
+   }
+
+
 </script>
 </body>
 </html>

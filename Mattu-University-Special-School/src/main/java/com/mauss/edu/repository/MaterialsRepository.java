@@ -10,4 +10,5 @@ import java.util.List;
 public interface MaterialsRepository extends JpaRepository<Materials, Long> {
 
     List<Materials> getAllMaterialsByClassN(String classN);
+    List<Materials> getAllByTeachId(String teachId);
 }

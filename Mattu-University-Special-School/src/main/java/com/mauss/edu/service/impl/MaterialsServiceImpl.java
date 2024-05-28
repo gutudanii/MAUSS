@@ -32,7 +32,7 @@ public class MaterialsServiceImpl implements MaterialsService {
 
     @Override
     public void deleteMaterials(Long id) {
-
+        materialsRepository.deleteById(id);
     }
 
     @Override
@@ -40,21 +40,27 @@ public class MaterialsServiceImpl implements MaterialsService {
         return materialsRepository.findAll();
     }
 
+
     @Override
     public void editMaterials(Long id, Materials materials) {
         Materials materials1 = materialsRepository.findById(id).get();
-
-            materials1.setMaterialId(materials.getMaterialId());
-            materials1.setTeachId(materials.getTeachId());
-            materials1.setClassId(materials.getClassId());
             materials1.setClassN(materials1.getClassN());
-            materials1.setCourseId(materials.getCourseId());
             materials1.setCourseN(materials.getCourseN());
             materials1.setTitle(materials.getTitle());
             materials1.setDescription(materials.getDescription());
-            materials1.setActivate(materials.isActivate());
-            materials1.setMaterial(materials.getMaterial());
             materialsRepository.save(materials1);
+    }
+    @Override
+    public void disable(Long id) {
+        Materials materials1 = materialsRepository.findById(id).get();
+        materials1.setActivate(false);
+        materialsRepository.save(materials1);
+    }
+    @Override
+    public void enable(Long id) {
+        Materials materials1 = materialsRepository.findById(id).get();
+        materials1.setActivate(true);
+        materialsRepository.save(materials1);
     }
 
     @Override

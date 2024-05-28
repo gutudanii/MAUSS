@@ -30,4 +30,14 @@ public class DepartmentsServiceImpl implements DepartmentsService {
     public List<Departments> getAllDepartments() {
         return departmentsRepository.findAll();
     }
+
+    @Override
+    public Departments disable(Long id) {
+        Departments departments1 = departmentsRepository.findById(id).get();
+        departments1.setDisabled(true);
+        departments1.setRevoked(false);
+
+        departmentsRepository.save(departments1);
+        return departments1;
+    }
 }

@@ -13,6 +13,106 @@
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Teachers Dashboard</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+        .announcement-box {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            max-width: 500px;
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+        .announcement-box h2 {
+            margin-top: 0;
+        }
+        .announcement-box label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .announcement-box input[type="text"],
+        .announcement-box textarea,
+        .announcement-box select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .announcement-box input[type="file"] {
+            margin-top: 5px;
+        }
+        .announcement-box button {
+            background-color: darkgreen;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .announcement-box button:hover {
+            background-color: #005700;
+        }
+        .announcement-list {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .announcement-item {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            width: 300px;
+            box-sizing: border-box;
+        }
+        .announcement-item img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+        .announcement-item .actions {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        .announcement-item .actions button {
+            background-color: #ff5722;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .announcement-item .actions button:hover {
+            background-color: #e64a19;
+        }
+        .announcement-item .actions .update-btn {
+            background-color: #2196f3;
+        }
+        .announcement-item .actions .update-btn:hover {
+            background-color: #1976d2;
+        }
+    </style>
 </head>
 <body>
 <nav class="sidebar close">
@@ -84,6 +184,12 @@
                     <span class="text nav-text">Profile</span>
                 </a>
             </li>
+            <li th:if="${viewDep}" class="">
+                <a th:href="@{/department}">
+                    <i class='bx bx-cog icon' ></i>
+                    <span class="text nav-text">Department Dash</span>
+                </a>
+            </li>
             <li class="">
                 <a th:href="@{/logout}">
                     <i class='bx bx-log-out icon' ></i>
@@ -148,19 +254,52 @@
 
 <section style="display:none;" id="ntf" class="home">
     <div class="text">Announcement</div>
-    <!-- <br> -->
-    <div class="main-content">
-        <div class="notifications">
-            <div th:each="notification : ${notifications}" class="notification-item">
-                <i class="fas fa-envelope"></i>
-                <div class="notification-info">
-                    <h3 th:text="${notification.subject}"></h3>
-                    <p th:text="${notification.message}"></p>
-                    <span th:text="${notification.formattedTimestamp}" class="notification-time"></span>
+    <div style="margin: 4%; margin-top: 6%;"><a onclick="viewAnn()" class="btn btn-view"><i class="fas fa-plus"></i> Post</a></div>
+    <div id="annWrap" style="display:none; margin: 4%; margin-left: 30%;" class="announcement-box">
+        <h2>Create Announcement</h2>
+        <form th:action="@{/announcement/save}" method="post" th:object="${announcement}" enctype="multipart/form-data" id="announcementForm">
+            <label for="title">Title</label>
+            <input th:field="*{title}" type="text" id="title" name="title" required>
+
+            <label for="message">Message</label>
+            <textarea th:field="*{message}" id="message" name="message" rows="5" required></textarea>
+
+            <label for="target">Target(Audience)</label>
+            <select id="target" name="target" th:field="*{target}" required>
+                <option value="all">Select All</option>
+                <option value="9">Grade 9</option>
+                <option value="10">Grade 10</option>
+                <option value="11">Grade 11</option>
+                <option value="12">Grade 12</option>
+            </select>
+
+            <label for="image">Image (PNG, JPEG, JPG)</label>
+            <input type="file" id="image" name="image" accept=".png, .jpeg, .jpg" required>
+
+            <button type="submit">Post Announcement</button>
+        </form>
+    </div>
+    <div th:each=" ann : ${getAnn}">
+        <div class="announcement-list" id="announcementList">
+            <div id="annViewOne" style="display:none; position: fixed; margin-left: 25%; z-index: 1; border-radius: 10px; width: 40%; max-height: 350px; background-color: rgb(252, 252, 252); color: black; overflow-y: auto; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                <p style="margin: 3%; color: red; cursor: pointer;" onclick="closeAnn()">Close</p>
+                <p style="margin: 3%;" th:text="${ann.message}"></p>
+            </div>
+            <div class="announcement-item">
+                <br><br>
+                <h3 th:text="${ann.title}"></h3>
+                <!--            <p th:text="${ann.message}"></p>-->
+                <p style="color: blue;" onclick="closeAnn()">View Desc...</p>
+                <p th:text="${ann.target}"><strong>Target:</strong></p>
+                <img th:src="@{/announcement/image/{id}(id=${ann.id})}" alt="Announcement Image">
+                <div class="actions">
+                    <a th:href="@{/}" class="update-btn">Update</a>
+                    <a th:href="@{/delete/announcement/{id}(id=${ann.id})}" class="delete-btn">Delete</a>
                 </div>
             </div>
         </div>
     </div>
+
     <div style="margin: 40px;">.</div>
 </section>
 
@@ -347,16 +486,16 @@
                 <a th:href="@{'materials/update/' + ${mater.id}}"><i class="fas fa-edit"></i></a>
                 <p th:text="${mater.classN}"></p>
                 <p th:text="${mater.materialId}"></p>
-                <a href="#" id="rprp" class="active-quiz-111">Active Now</a>
+                <a th:href="@{/material/disable/{id}(id=${mater.id})}" th:if="${mater.activate == true}" id="rprp" class="active-quiz-111">Actived</a>
+                <a th:href="@{/material/enable/{id}(id=${mater.id})}" th:if="${mater.activate == false}" id="rprp" class="deactive-quiz-111">Deactivated</a>
+                <a th:href="@{/material/delete/{id}(id=${mater.id})}" id="rprp" class="deactive-quiz-111">X Delete</a>
                 <p th:text="${mater.title}">Title: Quiz out of 10</p>
                 <p th:text="${mater.courseN}">Subject: Physcics</p>
                 <span class="box-rprp">
                 <a th:href="@{'materials/' + ${mater.id} + '/download'}">
-                <p class="fa fa-download"></p>
-                Download
-                </a>
-             <a href="#"> <p class="fas fa-eye"></p>View </a></span>
+                <p class="fa fa-download"></p>Download</a>
             </div>
+        </div>
         </div>
         <div style="margin: 40px;">.</div>
 </section>
@@ -465,6 +604,14 @@
                 cntrSprt.style.display = cntrSprt.style.display
                 === ""? "none" : "";
             }
+
+              function closeAnn(){
+                var cntrSprt = document.getElementById("annViewOne");
+
+                cntrSprt.style.display = cntrSprt.style.display
+                === ""? "none" : "";
+            }
+
             const body = document.querySelector('body'),
           sidebar = body.querySelector('nav'),
           toggle = body.querySelector(".toggle"),
@@ -491,6 +638,12 @@
 
         }
     });
+      function viewAnn(){
+                var cntrSprt = document.getElementById("annWrap");
+
+                cntrSprt.style.display = cntrSprt.style.display
+                === ""? "none" : "";
+            }
 </script>
 <script>
     $(document).ready(function() {

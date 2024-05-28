@@ -103,41 +103,11 @@
         </div>
     </div>
     <div class="container-12">
-        <div class="box-12">
-            <img src="/images/person1.jpg" alt="Person" />
-            <h2>Dr. Kabada Tafarra Nagaso</h2>
-            <p>kabadanagaso@gmail.com</p>
-            <p>Director</p>
-        </div>
-        <div class="box-12">
-            <img src="/images/person2.jpg" alt="Person" />
-            <h2>Dr. Bacarra Dagale Fayisa</h2>
-            <p>bacobaco@gmail.com</p>
-            <p>Academic Vice Director</p>
-        </div>
-        <div class="box-12">
-            <img src="/images/person3.jpg" alt="Person" />
-            <h2>Dr. Badhasa Wadajo Tafara</h2>
-            <p>badhasawakane@gmail.com</p>
-            <p>Adminstrative Vice Director</p>
-        </div>
-        <div class="box-12">
-            <img src="/images/person4.jpg" alt="Person" />
-            <h2>Wakane Tafarra Badhasa</h2>
-            <p>wake20212@gmail.com</p>
-            <p>Department Head of Natural Science</p>
-        </div>
-        <div class="box-12">
-            <img src="/images/person1.jpg" alt="Person" />
-            <h2>Oliqa Tafarra Wakane</h2>
-            <p>oliqabaredu@gmail.com</p>
-            <p>Department Head of Social Science</p>
-        </div>
-        <div class="box-12">
-            <img src="/images/person3.jpg" alt="Person" />
-            <h2>Tammiru Nagash Dowi</h2>
-            <p>tammeman2024@gmail.com</p>
-            <p>Students President</p>
+        <div th:each="adm : ${administrator}" class="box-12">
+            <img th:src="@{/admins/image/{id}(id=${adm.id})}" alt="Person" />
+            <h2 th:text="${adm.fullName}"></h2>
+            <p th:text="${adm.email}"></p>
+            <p th:text="${adm.position}"></p>
         </div>
     </div>
 </section>

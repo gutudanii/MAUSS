@@ -19,4 +19,5 @@ public class Academic {
     private String academicId; //TODO: Auto Generated
     private int year;
     private int semester;
+    private boolean end;
 }

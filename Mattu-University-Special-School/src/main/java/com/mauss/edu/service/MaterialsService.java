@@ -15,4 +15,7 @@ public interface MaterialsService {
     List<Materials> getAllMaterials();
     void editMaterials(Long id, Materials materials);
     Optional<Materials> getMaterialByID(Long id);
+    void disable(Long id);
+    void enable(Long id);
+
 }

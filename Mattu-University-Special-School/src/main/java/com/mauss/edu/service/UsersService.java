@@ -11,4 +11,5 @@ public interface UsersService {
     void saveUser(Users users);
     void deleteUserById(Long id);
     List<Users> getAllUsers();
+    Users updateUser(String uniqueId, Users users);
 }

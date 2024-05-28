@@ -20,6 +20,7 @@ public class ClassesController {
     public String saveClass(@ModelAttribute Classes classes,
                             @RequestParam("acaId") String acaId) {
         classes.setAcaId(acaId);
+        classes.setEnd(true);
         classesService.saveClasses(classes);
         return "redirect:/dashboard";
     }

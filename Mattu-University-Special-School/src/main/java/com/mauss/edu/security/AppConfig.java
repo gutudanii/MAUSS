@@ -32,6 +32,7 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
                         "/js/**", "/images/**",
                         "/landing","/regist.html",
                         "/users/login", "/users/create",
+                        "/admins/image/**",
                         "/users/save").permitAll()
                 .antMatchers("/").permitAll()
                 .anyRequest().authenticated()

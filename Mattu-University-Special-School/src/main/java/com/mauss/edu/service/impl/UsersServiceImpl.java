@@ -92,25 +92,41 @@ public class UsersServiceImpl implements UsersService {
     public List<Users> getAllUsers() {
         return usersRepository.findAll();
     }
+
+    @Override
+    public Users updateUser(String uniqueId, Users users) {
+        Users users1 = usersRepository.findByUniqueId(uniqueId).get();
+        users1.setFName(users.getFName());
+        users1.setMName(users.getMName());
+        users1.setLName(users.getLName());
+        users1.setDob(users.getDob());
+        users1.setAddress(users.getAddress());
+        users1.setPhone(users.getPhone());
+        users1.setGender(users.getGender());
+        users1.setEmail(users.getEmail());
+        users1.setRole(users.getRole());
+        usersRepository.save(users1);
+        return users1;
+    }
     String uniqueIdGenerator(String role){
         String unique_id = null;
         long count = getAllUsers().size()+10;
 
         if(role.equals("admin")){
             String gnr = String.valueOf(count+1);
-            unique_id = "ADM-"+ gnr + "/"+ Year.now();
+            unique_id = "ADM-"+ gnr + "-"+ Year.now();
         }
         else if(role.equals("registrar")){
             String gnr = String.valueOf(count+2);
-            unique_id = "REG-"+ gnr + "/"+ Year.now();
+            unique_id = "REG-"+ gnr + "-"+ Year.now();
         }
         else if(role.equals("teacher")){
             String gnr = String.valueOf(count+3);
-            unique_id = "TEACH-"+ gnr + "/"+ Year.now();
+            unique_id = "TEACH-"+ gnr + "-"+ Year.now();
         }
         else if(role.equals("student")){
             String gnr = String.valueOf(count+4);
-            unique_id = "STU-"+ gnr + "/"+ Year.now();
+            unique_id = "STU-"+ gnr + "-"+ Year.now();
         }
         return unique_id;
     }

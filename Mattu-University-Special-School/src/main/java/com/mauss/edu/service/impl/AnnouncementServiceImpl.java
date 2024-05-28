@@ -18,4 +18,21 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     public void saveAnnouncement(Announcement announcement) {
         announcementRepository.save(announcement);
     }
+
+    @Override
+    public void deleteAnnouncement(Long id) {
+        announcementRepository.deleteById(id);
+    }
+
+    @Override
+    public Announcement updateAnnouncement(Announcement announcement, Long id) {
+        Announcement announcement1 = announcementRepository.findById(id).get();
+
+        announcement1.setTitle(announcement.getTitle());
+        announcement1.setMessage(announcement.getMessage());
+        announcement1.setTarget(announcement.getTarget());
+
+        announcementRepository.save(announcement1);
+        return announcement1;
+    }
 }

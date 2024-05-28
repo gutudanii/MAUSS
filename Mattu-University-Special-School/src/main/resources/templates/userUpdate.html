@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/css/styles.css">
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <title>Admin Dashboard</title>
+    <title>Registrar Dashboard</title>
     <style>
         .close-link-1{
             text-align: right;
@@ -64,38 +64,49 @@
                 </span>
 
     </header>
-
 </nav>
 <div class="update-material">
-    <a class="close-link-1" href="#">X</a>
+    <a class="close-link-1" th:href="@{/dashboard}">X</a>
     <div id="cntrSprt" class="container-create">
-        <h2>Add New Course Material</h2>
-        <form th:action="@{'/' + ${material.id} + '/edit/materials'}" th:object="${material}" method="post" enctype="multipart/form-data">
-            <label for="orderName">Title (Name):</label>
-            <input type="text" id="fName" th:field="*{title}" required>
+        <h2>Update Users Info</h2>
+        <form th:action="@{'/' + ${usersUpdate.uniqueId} + '/edit/users'}" th:object="${usersUpdate}" method="post">
+            <label for="orderNo">First Name:</label>
+            <input type="text" id="mName" th:text="${fName}" th:field="*{fName}" required>
 
-            <label for="orderNo">Description:</label>
-            <input type="text" id="mName" th:field="*{description}" required>
+            <label for="orderNo">Middle Name:</label>
+            <input type="text" id="mName" th:text="${mName}" th:field="*{mName}" required>
 
-            <label for="type">Subject (choose):</label>
-            <select style="padding: 2px 70px; font-size: 15px;" id="type" th:field="*{courseN}" required>
-                <option value="Biology">Biology</option>
-                <option value="Chemistry">Chemistry</option>
-                <option value="Physics">Physics</option>
-                <option value="English">English</option>
-                <option value="Sport">Sport</option>
+            <label for="orderNo">Last Name:</label>
+            <input type="text" id="mName" th:text="${lName}" th:field="*{lName}" required>
+
+            <label for="orderNo">Date of Birth:</label>
+            <input type="date" id="mName" th:text="${dob}" th:field="*{dob}" required>
+
+            <label for="orderNo">Address:</label>
+            <input type="text" id="mName" th:text="${address}" th:field="*{address}" required>
+
+            <label for="orderNo">Phone:</label>
+            <input type="number" id="mName" th:text="${phone}" th:field="*{phone}" required>
+
+            <label for="gender">Gender:</label>
+            <select style="padding: 2px 70px; font-size: 15px;" id="gender" th:field="*{gender}" required>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
             </select>
 
-            <label for="type">Class (choose):</label>
-            <select style="padding: 2px 50px;" id="type" th:field="*{classN}" required>
-                <option value="all">All</option>
-                <option value="grade9">Grade 9</option>
-                <option value="grade10">Grade 10</option>
-                <option value="grade11">Grade 11</option>
-                <option value="grade12">Grade 12</option>
+            <label for="orderName">Email:</label>
+            <input type="email" id="fName" th:field="*{email}" th:text="${email}" required>
+
+            <label for="type">Role (choose):</label>
+            <select style="padding: 2px 50px;" id="type" th:field="*{role}" required>
+                <option value="student">Student</option>
+                <option value="teacher">Teacher</option>
+                <option value="admin">Admin</option>
+                <option value="register">Registrar</option>
             </select>
             <br>
-            <button type="submit" value="Upload">Create</button>
+            <br>
+            <button type="submit" value="Upload">Update</button>
         </form>
     </div>
 </body>

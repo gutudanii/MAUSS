@@ -54,7 +54,7 @@ public class MaterialsController {
         return "redirect:/dashboard";
     }
 
-    @GetMapping("materials/update/{id}")
+    @GetMapping("/materials/update/{id}")
     public String getMatUpdate(@PathVariable Long id, Model model) {
         Materials materials = materialsService.getMaterialByID(id).get();
         model.addAttribute("material", materials);
@@ -65,7 +65,22 @@ public class MaterialsController {
         materialsService.editMaterials(id, materials);
         return "redirect:/dashboard";
     }
-    @GetMapping("materials/{id}/download")
+    @RequestMapping(path = {"/material/disable", "/material/disable/{id}"})
+    public String disable(@PathVariable("id") Long id){
+        materialsService.disable(id);
+        return "redirect:/dashboard";
+    }
+    @RequestMapping(path = {"/material/delete", "/material/delete/{id}"})
+    public String delete(@PathVariable("id") Long id){
+        materialsService.deleteMaterials(id);
+        return "redirect:/dashboard";
+    }
+    @RequestMapping(path = {"/material/enable", "/material/enable/{id}"})
+    public String enable(@PathVariable("id") Long id){
+        materialsService.enable(id);
+        return "redirect:/dashboard";
+    }
+    @GetMapping("/materials/{id}/download")
     public ResponseEntity<byte[]> downloadMaterial(@PathVariable Long id) {
         Optional<Materials> materialOptional = materialsService.findById(id);
         if (materialOptional.isPresent()) {
@@ -78,7 +93,7 @@ public class MaterialsController {
 
             // Set content type based on file extension
             String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
-            System.out.println("File extension: " + fileExtension); // Add this line for debugging
+//            System.out.println("File extension: " + fileExtension); // Add this line for debugging
             switch (fileExtension) {
                 case "pdf":
                     headers.setContentType(MediaType.APPLICATION_PDF);

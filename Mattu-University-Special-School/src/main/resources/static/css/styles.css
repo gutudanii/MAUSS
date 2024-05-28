@@ -292,6 +292,7 @@ body.dark .switch::before{
     width: calc(100% - 250px);
     background-color: var(--body-color);
     transition: var(--tran-05);
+    overflow-y: auto;
     /* display: flex; */
 }
 .home .text{
@@ -740,8 +741,17 @@ tr:hover {
 
   @media (max-width: 768px) {
     .main-container {
-      flex-direction: column;
+      display: grid;
     }
+    .right-side{
+        display:grid;
+    }
+     .left-side{
+            display:grid;
+        }
+        .update-info{
+            display: grid;
+        }
   }
 
   .container {
@@ -762,7 +772,15 @@ tr:hover {
     margin-left:1%;
     color: rgb(255, 255, 255);
   }
-
+@media screen and (max-width: 768px) {
+  .container {
+    display: grid;
+              }
+   .box{
+       width: 70%;
+       margin-left: 5%;
+    }
+  }
   .icon {
     font-size: 24px !important;
     margin-top: 10px;
@@ -817,7 +835,6 @@ tr:hover {
   width: calc(50% - 10px); /* 50% width with margin */
   margin: 5px;
   padding: 10px;
-  border: 1px solid #ccc;
   border-radius: 5px;
   display: flex;
   align-items: center;

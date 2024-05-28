@@ -20,12 +20,10 @@ public class Departments {
     private String assignedDateTime; //todo: Auto
     private String positionExp; //todo: Auto
     private String revokeDateTime; //todo: Auto
-    private boolean Disabled;
-    private boolean isReplacement;
-    private String replacementExp;
-    private boolean isReplacementApp;
+    private String stream;
+    private boolean disabled;
+    private boolean revoked;
     private String assignedRegId;
-    private String replacedAppId;
 
     public void setAssignedDateTime(LocalDateTime assignedDateTime) {
         this.assignedDateTime = DateTimeUtils.formatLocalDateTime(assignedDateTime);

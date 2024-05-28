@@ -12,18 +12,18 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Announcement {
+public class SystemSetting {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String authorId;
-    private String postDateTime;
-    private String title;
+    private String telegram;
+    private String facebook;
+    private String instagram;
+    private String twitter;
+    private String school;
+    private String phone;
     @Lob
-    private String message;
-    private String target; //TODO: is that public announcement or Staff only or Student ... .ect
-    @Lob
-    private byte[] image;
+    private byte[] logo;
     private String fileName;
 }

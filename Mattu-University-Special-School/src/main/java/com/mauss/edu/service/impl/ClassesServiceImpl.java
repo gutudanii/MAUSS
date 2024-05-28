@@ -19,4 +19,20 @@ public class ClassesServiceImpl implements ClassesService {
         classes.setClassId(classes.getAcaId() + "-GR-" + classes.getClassNo());
         classesRepository.save(classes);
     }
+
+    @Override
+    public Classes end(String acadId) {
+        Classes classes = classesRepository.getByAcaId(acadId).get();
+        classes.setEnd(true);
+        classesRepository.save(classes);
+        return classes;
+    }
+
+    @Override
+    public Classes notEnd(String acadId) {
+        Classes classes = classesRepository.getByAcaId(acadId).get();
+        classes.setEnd(false);
+        classesRepository.save(classes);
+        return classes;
+    }
 }

@@ -3,10 +3,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -16,18 +14,21 @@ import javax.persistence.Id;
 public class Students {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private String uniqueId;
-    private int grade;
-    private String primarySchoolName;
+    private Long id; //done
+    private String uniqueId; //done
+    private int grade; //done
+    private String section; //todo: Auto Selected
+    private String primarySchoolName; //done
     private String ministryId;
     private String ministryPoint;
     private String entranceExamId;
-//  private byte[] mergedFiles;
     private String formName;
     private Long formPhone;
     private String formAddress;
     private String formEmail;
     private int yearEnrolled;
-    private String stream;
+    private String stream; //done
+    @Lob
+    private byte[] image; //done
+    private String imageName;
 }

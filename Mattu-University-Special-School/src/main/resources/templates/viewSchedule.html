@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+        .schedule-container {
+            max-width: 1200px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .schedule-container h2 {
+            text-align: center;
+            color: #004d4d;
+            margin-bottom: 20px;
+        }
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .schedule-table th, .schedule-table td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+        .schedule-table th {
+            background-color: #004d4d;
+            color: #fff;
+        }
+        .schedule-table td {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+<h2 style="margin-left:4%">Program of the Week</h2>
+<a style=" margin-left: 4%; padding: 4px 10px; border-radius: 5px; background-color: darkgreen; color: white;" th:href="@{/department}">Back</a>
+<div class="schedule-container">
+    <table class="schedule-table">
+        <thead>
+        <tr>
+            <th>Time</th>
+            <th>Monday</th>
+            <th>Tuesday</th>
+            <th>Wednesday</th>
+            <th>Thursday</th>
+            <th>Friday</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="hour : ${scheduleHours}">
+            <td th:text="${hour}"></td>
+            <td th:each="schedule : ${schedules}"
+                th:if="${schedule.dayOfWeek == 'Monday'} and ${#strings.substring(hour, 0, 5) == schedule.startTime}">
+                <span th:text=" ${schedule.courseName} + ' - ' + ${schedule.teachName}"></span>
+            </td>
+            <td th:each="schedule : ${schedules}"
+                th:if="${schedule.dayOfWeek == 'Tuesday'} and ${#strings.substring(hour, 0, 5) == schedule.startTime}">
+                <span th:text=" ${schedule.courseName} + ' - ' + ${schedule.teachName}"></span>
+            </td>
+            <td th:each="schedule : ${schedules}"
+                th:if="${schedule.dayOfWeek == 'Wednesday'} and ${#strings.substring(hour, 0, 5) == schedule.startTime}">
+                <span th:text=" ${schedule.courseName} + ' - ' + ${schedule.teachName}"></span>
+            </td>
+            <td th:each="schedule : ${schedules}"
+                th:if="${schedule.dayOfWeek == 'Thursday'} and ${#strings.substring(hour, 0, 5) == schedule.startTime}">
+                <span th:text=" ${schedule.courseName} + ' - ' + ${schedule.teachName}"></span>
+            </td>
+            <td th:each="schedule : ${schedules}"
+                th:if="${schedule.dayOfWeek == 'Friday'} and ${#strings.substring(hour, 0, 5) == schedule.startTime}">
+                <span th:text=" ${schedule.courseName} + ' - ' + ${schedule.teachName}"></span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
