@@ -11,7 +11,6 @@ import java.util.Optional;
 public interface StudentsRepository extends JpaRepository<Students, Long> {
 
     Optional<Students> findByUniqueId(String uniqueId);
-    List<Students> findByGrade(int grade);
-    List<Students> findBySection(char section);
+    List<Students> getByClassId(String classId);
 
 }

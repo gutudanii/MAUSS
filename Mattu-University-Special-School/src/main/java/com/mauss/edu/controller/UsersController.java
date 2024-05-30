@@ -1,6 +1,7 @@
 package com.mauss.edu.controller;
 
 import com.mauss.edu.model.*;
+import com.mauss.edu.quiz.QuizRepository;
 import com.mauss.edu.repository.*;
 import com.mauss.edu.service.*;
 import lombok.AllArgsConstructor;
@@ -10,10 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -54,6 +52,9 @@ public class UsersController {
     @Autowired
     private final SchedulesRepository schedulesRepository;
 
+    @Autowired
+    private final QuizRepository quizRepository;
+
     @GetMapping("/users/all")
     @ResponseBody
     public List<Users> getAllUsers() {
@@ -68,6 +69,7 @@ public class UsersController {
             return "redirect:/home";
         }
         model.addAttribute("administrator", getAllAdministrators);
+        model.addAttribute("contact", new Contact());
         return "landing.html";
     }
     @GetMapping("/users/update/{uniqueId}")
@@ -89,6 +91,7 @@ public class UsersController {
     public String getHome(Model model){
         List<Administrators> getAllAdministrators = administratorsRepository.findAll();
         model.addAttribute("administrator", getAllAdministrators);
+        model.addAttribute("contact", new Contact());
         return "home.html";
     }
     @GetMapping("/dashboard")
@@ -99,10 +102,17 @@ public class UsersController {
             List<Materials> getAllMaterials  = materialsService.getAllMaterials();
             model.addAttribute("materials", getAllMaterials);
             Students students = studentsRepository.findByUniqueId(users1.getUniqueId()).get();
-            String grd = String.valueOf(students.getGrade());
+            String grd = String.valueOf(students.getClassId());
             List<String> getTargets = Arrays.asList("all", "student", grd);
             List<Announcement> getAnnouncementByRole = announcementRepository.findByTargetIn(getTargets);
             model.addAttribute("getAnn", getAnnouncementByRole);
+            List<Quiz> getByAuthorId =  quizRepository.findAll();
+            if (getByAuthorId.size()>=1) {
+                model.addAttribute("quizList", getByAuthorId.get(0));
+            }
+            else {
+                model.addAttribute("quizList", getByAuthorId);
+            }
             return "/student.html";
         }
         else if (users1.getRole().equals("teacher")){
@@ -116,6 +126,33 @@ public class UsersController {
             model.addAttribute("announcement", announcement);
             List<Announcement> getAllByAuthorId = announcementRepository.getAllByAuthorId(users1.getUniqueId());
             model.addAttribute("getAnn", getAllByAuthorId);
+
+            List<Schedules> getAllTeachClass = schedulesRepository.getByTeachId(users1.getUniqueId());
+            List<Classes> activeClasses = new ArrayList<>();
+            List<Classes> endClasses = new ArrayList<>();
+
+            List<Quiz> getByAuthorId =  quizRepository.getAllByAuthorId(users1.getUniqueId());
+            if (getByAuthorId.size()>=1) {
+                model.addAttribute("getTitle", getByAuthorId.get(0));
+            }
+            else {
+                model.addAttribute("getTitle", getByAuthorId);
+            }
+        for (Schedules schedule : getAllTeachClass) {
+                List<Classes> classesList = classesRepository.getAllByClassId(schedule.getClassId());
+                for (Classes getClass : classesList) {
+                    if (!activeClasses.contains(getClass) && !getClass.isEnd()) {
+                        activeClasses.add(getClass);
+                    } else if (!endClasses.contains(getClass) && getClass.isEnd()) {
+                        endClasses.add(getClass);
+                    }
+                }
+            }
+
+            model.addAttribute("activeClasses", activeClasses);
+            model.addAttribute("endClasses", endClasses);
+
+
             return "/teacher.html";
         }
         else if (users1.getRole().equals("registrar")){
@@ -206,6 +243,11 @@ public class UsersController {
         model.addAttribute("users", users);
         return "/regist.html";
     }
+    @GetMapping("/regist")
+    public String getRegis(Model model){
+        model.addAttribute("users", new Users());
+        return "/regist.html";
+    }
     @PostMapping("/users/save")
     public String saveUser(@ModelAttribute Users users){
         usersService.saveUser(users);
@@ -236,24 +278,26 @@ public class UsersController {
 
                 List<Users> getAllTeacher = usersRepository.findAllUsersByRole("teacher");
                 model.addAttribute("teachers", getAllTeacher);
-//
-//                List<Schedules> listSchedules = schedulesRepository.findAll();
-//
-//                // Generate a list of schedule hours
-//                List<String> scheduleHours = Stream.of("08:00 - 09:00", "09:00 - 10:00", "10:00 - 11:00", "11:00 - 12:00",
-//                                "13:00 - 14:00", "14:00 - 15:00", "15:00 - 16:00")
-//                        .collect(Collectors.toList());
-//
-//                model.addAttribute("schedules", listSchedules);
-//                model.addAttribute("scheduleHours", scheduleHours);
-
 
                 return "/departmentNatural.html";
             }
             else {
                 model.addAttribute("studentUser", getAllStudents);
                 model.addAttribute("schedule", schedules);
-                return "/departmentSocial.html";
+
+                List<Academic> getAllAcademic = academicRepository.getByEnd(false);
+                model.addAttribute("academics", getAllAcademic);
+
+                List<Classes> getAllClasses = classesRepository.getByEnd(false);
+                model.addAttribute("classes", getAllClasses);
+
+                List<Courses> getAllCourses = coursesRepository.findAll();
+                model.addAttribute("courses", getAllCourses);
+
+                List<Users> getAllTeacher = usersRepository.findAllUsersByRole("teacher");
+                model.addAttribute("teachers", getAllTeacher);
+
+                return "/departmentNatural.html";
             }
         }
         else {

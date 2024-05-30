@@ -1,11 +1,14 @@
 package com.mauss.edu.controller;
 
+import com.mauss.edu.mail.MailService;
+import com.mauss.edu.model.Contact;
 import com.mauss.edu.model.Courses;
 import com.mauss.edu.model.Schedules;
 import com.mauss.edu.model.Users;
 import com.mauss.edu.repository.CoursesRepository;
 import com.mauss.edu.repository.SchedulesRepository;
 import com.mauss.edu.repository.UsersRepository;
+import com.mauss.edu.service.ContactService;
 import com.mauss.edu.service.ScheduleService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +30,14 @@ public class ScheduleController {
 
     @Autowired
     private final ScheduleService scheduleService;
-
+    @Autowired
+    private final MailService mailService;
     @Autowired
     private final CoursesRepository coursesRepository;
     @Autowired
     private final UsersRepository usersRepository;
+    @Autowired
+    private final ContactService contactService;
     @Autowired
     private final SchedulesRepository schedulesRepository;
     @PostMapping("/schedules/save")
@@ -61,6 +67,12 @@ public class ScheduleController {
         model.addAttribute("scheduleHours", scheduleHours);
 
         return "/viewSchedule.html";
+    }
+
+    @PostMapping("/contact/save")
+    public String getContact(@ModelAttribute Contact contact){
+        contactService.saveContact(contact);
+        return "redirect:/";
     }
 
 }

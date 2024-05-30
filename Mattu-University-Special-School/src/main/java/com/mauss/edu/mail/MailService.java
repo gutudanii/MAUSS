@@ -6,5 +6,5 @@ import org.springframework.stereotype.Service;
 public interface MailService {
 
     void sendMail(Mail mail, String username, String pass);
-    void sendNotification(Mail mail, String subject , String fName);
+    void sendNotification(String subject , String message, String fullName, String email);
 }

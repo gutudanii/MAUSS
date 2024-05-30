@@ -40,7 +40,7 @@ public class StudentsServiceImpl implements StudentsService {
     @Override
     public Students updateStudents(Students students, String uniqueId) {
         Students students1 = studentsRepository.findByUniqueId(uniqueId).get();
-                students1.setGrade(students.getGrade());
+                students1.setClassId(students.getClassId());
                 students1.setPrimarySchoolName(students.getPrimarySchoolName());
                 students1.setMinistryId(students.getMinistryId());
                 students1.setMinistryPoint(students.getMinistryPoint());

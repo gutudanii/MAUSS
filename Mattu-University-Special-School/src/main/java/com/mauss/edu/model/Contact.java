@@ -15,25 +15,13 @@ import javax.persistence.Id;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Quiz {
+public class Contact {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String classId;
-
-    private String question;
-    private String ch_A;
-    private String ch_B;
-    private String ch_C;
-    private String ch_D;
-    private int chose;
-    private int answer;
-
+    private String fullName;
+    private String email;
     private String subject;
-    private String subjectId;
-    private String stream;
-    private String description;
-    private String title;
-    private String authorId; //TODO: AUTO
+    private String message;
 }

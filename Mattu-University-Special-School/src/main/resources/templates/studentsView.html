@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classroom Students List</title>
+    <style>
+        body {
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .container h2 {
+            text-align: center;
+            color: #004d4d;
+            margin-bottom: 20px;
+        }
+        .students-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .students-table th, .students-table td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+        .students-table th {
+            background-color: #004d4d;
+            color: #fff;
+        }
+        .students-table td {
+            background-color: #f9f9f9;
+        }
+        .action-button {
+            padding: 4px 10px;
+            border-radius: 5px;
+            background-color: darkgreen;
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<h2 style="margin-left:4%">Classroom Students List</h2>
+<a style="margin-left: 4%; padding: 4px 10px; border-radius: 5px; background-color: darkgreen; color: white;" th:href="@{/dashboard}">Back</a>
+<div class="container">
+    <table class="students-table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Ass. One</th>
+            <th>Ass. Two</th>
+            <th>Test Exam</th>
+            <th>Mid Exam</th>
+            <th>Final Exam</th>
+            <th>Total Mark</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="student : ${studentsList}">
+            <td th:text="${student.id}"></td>
+            <td th:text="${student.uniqueId}"></td>
+<!--            <td th:text="${student.assOne}"></td>-->
+<!--            <td th:text="${student.assTwo}"></td>-->
+<!--            <td th:text="${student.testExam}"></td>-->
+<!--            <td th:text="${student.midExam}"></td>-->
+<!--            <td th:text="${student.finalExam}"></td>-->
+<!--            <td th:text="${student.totalMark}"></td>-->
+            <td>
+                <a class="action-button" th:href="@{/students/update/{id}(id=${student.id})}">Update</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -33,17 +33,21 @@ public class AcademicController {
     @RequestMapping(path = {"/academic/end","/academic/end/{acadId}"})
     public String endAcademic(@PathVariable("acadId") String acadId){
         academicService.end(acadId);
-        if (classesRepository.getByAcaId(acadId).isPresent()){
-        classesService.end(acadId);
-        }
         return "redirect:/dashboard";
     }
     @RequestMapping(path = {"/academic/NotEnd","/academic/NotEnd/{acadId}"})
     public String NotEndAcademic(@PathVariable("acadId") String acadId){
         academicService.notEnd(acadId);
-        if (classesRepository.getByAcaId(acadId).isPresent()){
-            classesService.notEnd(acadId);
-        }
+        return "redirect:/dashboard";
+    }
+    @RequestMapping(path = {"/classes/NotEnd", "/classes/NotEnd/{id}"})
+    public String ends(@PathVariable("id")Long id){
+            classesService.notEnd(id);
+        return "redirect:/dashboard";
+    }
+    @RequestMapping(path = {"/classes/End", "/classes/End/{id}"})
+    public String endSs(@PathVariable("id")Long id){
+        classesService.end(id);
         return "redirect:/dashboard";
     }
     @RequestMapping(path = {"/delete/academic", "/delete/academic/{id}"})

@@ -11,6 +11,7 @@ import java.util.Optional;
 public interface ClassesRepository extends JpaRepository<Classes, Long> {
 
     List<Classes> getAllByAcaId(String acaId);
+    List<Classes> getAllByClassId(String classId);
     Optional<Classes> getByAcaId(String acaId);
     List<Classes> getByEnd(boolean end);
 }

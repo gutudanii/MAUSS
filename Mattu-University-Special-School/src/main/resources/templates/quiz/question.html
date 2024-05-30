@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        margin-top: 23%;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    .container {
+        background-color: #ffffff;
+        padding: 40px 60px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 800px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .form {
+        padding: 20px 0;
+    }
+    h6 {
+        margin-bottom: 10px;
+        font-weight: bold;
+        color: #333;
+    }
+    .form-floating {
+        margin-bottom: 15px;
+    }
+    .form-floating label {
+        color: gray;
+    }
+    .form-floating input {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    .form-select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    .submit-btn, .finished-link {
+        display: inline-block;
+        padding: 10px 20px;
+        margin-top: 20px;
+        border: none;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        text-align: center;
+        font-size: 16px;
+    }
+    .submit-btn:hover, .finished-link:hover {
+        background-color: #0056b3;
+    }
+    .finished-link {
+        background-color: #28a745;
+    }
+    .finished-link:hover {
+        background-color: #218838;
+    }
+    .form-header {
+        font-size: 25px;
+        font-weight: bolder;
+        margin-bottom: 20px;
+        color: #333;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <span>There are <span th:text="${numb}"></span> questions</span>
+  <br>
+  <form class="form" method="post" th:action="@{/quiz/save}">
+    <div class="form-floating mt-3 md-3">
+      <input type="text" th:field="*{question1.title}" required>
+      <label>Title</label>
+    </div>
+    <div class="col-sm-9 text-secondary">
+      <div class="col-sm-3">
+        <h6 class="mb-0">Course</h6>
+      </div>
+      <select th:field="*{question1.subject}" class="form-select" name="" required>
+        <option th:each="crs : ${courseList}" th:value="${crs.courseName} + ' ' + ${crs.targetGrade}" th:text="${crs.courseName} + ' ' + ${crs.targetGrade}"></option>
+      </select>
+    </div>
+    <br>
+    <div class="row mb-3">
+      <div class="col-sm-3">
+        <h6 class="mb-0">Classes</h6>
+      </div>
+      <div class="col-sm-9 text-secondary">
+        <select th:field="*{question1.classId}" class="form-select" name="" required>
+          <option th:each="cls : ${classList}" th:value="${cls.classId}" th:text="${cls.classNo} + ' ' + ${cls.section}"></option>
+        </select>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-sm-3">
+        <h6 class="mb-0">Stream</h6>
+      </div>
+      <div class="col-sm-9 text-secondary">
+        <select th:field="*{question1.classId}" class="form-select" name="" required>
+          <option value="Natural">Natural</option>
+          <option value="Social">Social</option>
+        </select>
+      </div>
+    </div>
+    <br>
+    <div>
+      <label>Enter Description</label>
+      <textarea cols="20" rows="5" th:field="*{question1.description}"></textarea>
+    </div>
+    <br>
+    <span class="form-header">Question <span th:text="${numb}"></span></span>
+    <br>
+    <div class="form-floating mt-3 md-3">
+      <label>Question</label>
+      <input type="text" th:field="*{question1.question}" required>
+    </div>
+    <div class="form-floating mt-3 md-3">
+      <label>Option A</label>
+      <input type="text" class="form-control" th:field="*{question1.ch_A}" required>
+    </div>
+    <div class="form-floating mt-3 md-3">
+      <label>Option B</label>
+      <input type="text" th:field="*{question1.ch_B}" required>
+    </div>
+    <div class="form-floating mt-3 md-3">
+      <label>Option C</label>
+      <input type="text" th:field="*{question1.ch_C}" required>
+    </div>
+    <div class="form-floating mt-3 md-3">
+      <label>Option D</label>
+      <input type="text" th:field="*{question1.ch_D}" required>
+    </div>
+    <div class="row mb-3">
+      <div class="col-sm-3">
+        <h5 class="mb-0">Answer</h5>
+      </div>
+      <div class="col-sm-9 text-secondary">
+        <select th:field="*{question1.answer}" class="form-select" name="" required>
+          <option th:value="'1'" th:text="A"></option>
+          <option th:value="'2'" th:text="B"></option>
+          <option th:value="'3'" th:text="C"></option>
+          <option th:value="'4'" th:text="D"></option>
+        </select>
+      </div>
+    </div>
+    <div class="mt-4">
+      <input type="submit" value="NEXT" class="submit-btn">
+    </div>
+    <div class="mt-4">
+      <a th:href="@{/quiz/completed}" class="finished-link">Finished</a>
+    </div>
+  </form>
+</div>
+</body>
+</html>

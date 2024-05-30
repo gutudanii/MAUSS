@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface SchedulesRepository extends JpaRepository<Schedules, Long> {
     List<Schedules> getByClassId(String classId);
+    List<Schedules> getByTeachId(String teachId);
 }

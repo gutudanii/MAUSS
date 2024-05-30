@@ -30,7 +30,7 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/css/**",
                         "/js/**", "/images/**",
-                        "/landing","/regist.html",
+                        "/landing","/regist.html", "/regist", "/contact/save",
                         "/users/login", "/users/create",
                         "/admins/image/**",
                         "/users/save").permitAll()

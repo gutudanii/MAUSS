@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>My List</title>
+</head>
+<body>
+<th:body th:each="l : ${myList}" th:field="${l}" >
+<!--    <div th:text="${l.chapter}"></div>-->
+    <a th:href="@{/quiz/myList/chapter/{chapter}(chapter= ${l.chapter})}" th:text="${l.chapter}"></a>
+</th:body>
+</body>
+</html>

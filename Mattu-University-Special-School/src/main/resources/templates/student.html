@@ -79,12 +79,6 @@
 
         <div class="bottom-content">
             <li class="">
-                <a th:href="@{/profile}">
-                    <i class='bx bx-user-circle icon' ></i>
-                    <span class="text nav-text">Profile</span>
-                </a>
-            </li>
-            <li class="">
                 <a th:href="@{/logout}">
                     <i class='bx bx-log-out icon' ></i>
                     <span class="text nav-text">Logout</span>
@@ -370,21 +364,20 @@
                 <th>Exam ID</th>
                 <th>Subject</th>
                 <th>Grade</th>
+                <th>Title</th>
                 <th>Action</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
+            <tr th:each="quiz : ${quizList}">
+                <td th:text="${quiz.id}"></td>
+                <td th:text="${quiz.subject}"></td>
+                <td th:text="${quiz.classId}"></td>
+                <td th:text="${quiz.title}"></td>
                 <td>
                     <a style=" font-weight: bolder;
-              color: darkgreen; padding-right: 10px;
-               " href="#"><i class="fas fa-download"></i> Download </a>
-                    <a style=" font-weight: bolder;
              color: rgb(4, 12, 87);
-               " href="#"><i class="fas fa-eye"></i> View </a>
+               " th:href="@{/home/quiz}"><i class="fas fa-eye"></i> Take </a>
                 </td>
             </tr>
             <!-- Add more rows for other quizzes -->
@@ -432,9 +425,6 @@
                     <a style="font-weight: bolder;
                             color: darkgreen; padding-right: 10px;
                   " th:href="@{'materials/' + ${mater.id} + '/download'}"><i class="fas fa-download"></i> Download </a>
-                    <a style="font-weight: bolder;
-                  color: rgb(4, 12, 87);
-                  " href="#"><i class="fas fa-eye"></i> View </a>
                 </td>
             </tr>
             <!-- Add more rows for other quizzes -->

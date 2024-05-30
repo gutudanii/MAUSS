@@ -25,22 +25,6 @@ public class MaterialsController {
     private final MaterialsService materialsService;
     @Autowired
     private final UsersRepository usersRepository;
-
-    //    @PostMapping("/materials/save")
-//    public String saveMaterials(@ModelAttribute Materials materials)
-//                                @RequestParam("material") MultipartFile material) throws IOException {
-//    {
-//        if (!material.isEmpty()) {
-//            materials.setMaterial(material.getBytes());
-//        }
-//        else {
-//            materials.setMaterial(null);
-//        }
-//        materials.setMaterial(null);
-//        materials.setActivate(true);
-//        materialsService.saveMaterials(materials);
-//        return "redirect:/dashboard";
-//    }
     @PostMapping("/materials/save")
     public String saveMaterials(@ModelAttribute Materials materials, @RequestParam("material") MultipartFile material, Principal principal) throws IOException {
         if (!material.isEmpty()) {

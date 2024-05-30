@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @AllArgsConstructor
 public class ClassesServiceImpl implements ClassesService {
@@ -16,21 +18,21 @@ public class ClassesServiceImpl implements ClassesService {
 
     @Override
     public void saveClasses(Classes classes) {
-        classes.setClassId(classes.getAcaId() + "-GR-" + classes.getClassNo());
+        classes.setClassId(classes.getAcaId() + "-GR-" + classes.getClassNo() + "-" + classes.getId());
         classesRepository.save(classes);
     }
 
     @Override
-    public Classes end(String acadId) {
-        Classes classes = classesRepository.getByAcaId(acadId).get();
+    public Classes end(Long id) {
+        Classes classes = classesRepository.findById(id).get();
         classes.setEnd(true);
         classesRepository.save(classes);
         return classes;
     }
 
     @Override
-    public Classes notEnd(String acadId) {
-        Classes classes = classesRepository.getByAcaId(acadId).get();
+    public Classes notEnd(Long id) {
+        Classes classes = classesRepository.findById(id).get();
         classes.setEnd(false);
         classesRepository.save(classes);
         return classes;

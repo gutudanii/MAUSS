@@ -80,12 +80,6 @@
         <div class="bottom-content">
             <li class="">
                 <a th:href="@{/logout}">
-                    <i class='bx bx-user-circle icon' ></i>
-                    <span class="text nav-text">Profile</span>
-                </a>
-            </li>
-            <li class="">
-                <a th:href="@{/logout}">
                     <i class='bx bx-log-out icon' ></i>
                     <span class="text nav-text">Logout</span>
                 </a>
@@ -411,7 +405,10 @@
                     <p style=" margin-left: 5%; font-weight: bolder;">Grade: </p>
                     <span th:each="clsgrade : ${classesByAcademicId[acad.academicId]}" style="display:inline-flex; margin: 1%;">
             <br>
-            <p th:text="${clsgrade.classNo + clsgrade.section}" style="border:1px solid blue; padding: 2px 10px; border-radius: 5px; margin-left: 2%; background-color: blue; color: white">9A</p>
+           <p th:text="${clsgrade.classNo + clsgrade.section}" style="border:1px solid blue; padding: 2px 10px; border-radius: 5px; margin-left: 2%; background-color: blue; color: white">
+           </p>
+                          <a th:if="${clsgrade.end == false}" style="text-decoration:none; color: white; border-radius: 5px; padding: 2px 8px; background-color:rgb(152, 180, 27);" th:href="@{/classes/End/{id}(id=${clsgrade.id})}">End</a>
+                          <a th:if="${clsgrade.end == true}" style="text-decoration:none; color: white;  border-radius: 5px; padding: 2px 8px; background-color:darkgreen;" th:href="@{/classes/NotEnd/{id}(id=${clsgrade.id})}">Start</a>
         </span>
                     <a th:if="${acad.end == true}" style="background-color: rgb(10, 105, 18); color:white;
                       text-decoration:none; padding: 3px 10px; border-radius: 5px;" th:href="@{/academic/NotEnd/{id}(id=${acad.academicId})}">+ Start</a>

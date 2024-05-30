@@ -16,8 +16,7 @@ public class Students {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id; //done
     private String uniqueId; //done
-    private int grade; //done
-    private String section; //todo: Auto Selected
+    private String classId;
     private String primarySchoolName; //done
     private String ministryId;
     private String ministryPoint;

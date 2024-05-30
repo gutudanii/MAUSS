@@ -178,12 +178,6 @@
         </div>
 
         <div class="bottom-content">
-            <li class="">
-                <a th:href="@{/logout}">
-                    <i class='bx bx-user-circle icon' ></i>
-                    <span class="text nav-text">Profile</span>
-                </a>
-            </li>
             <li th:if="${viewDep}" class="">
                 <a th:href="@{/department}">
                     <i class='bx bx-cog icon' ></i>
@@ -308,87 +302,86 @@
     <div class="marklist-container-teach">
         <h2>Active Classes</h2>
         <div class="active-classes-teach">
-            <div class="active-box11">
-                <a href="#"><i class="fas fa-edit"></i></a>
-                <p>Grade: 9th</p>
-                <p>Section: E</p>
+            <div th:each="cls : ${activeClasses}" class="active-box11">
+                <a th:href="@{/students/list/{clsId}(clsId=${cls.classId})}"><i class="fas fa-edit"></i></a>
+                <p>Grade: <strong th:text="${cls.classNo}"></strong></p>
+                <p>Section: <strong th:text="${cls.section}"></strong></p>
                 <a href="#" id="rprp" class="request-approval">Request Approval</a>
                 <p>Class: Block 5 1st Floor</p>
             </div>
-            <div class="active-box11">
-                <a href="#"><i class="fas fa-eye"></i></a>
-                <p>Grade: 9th</p>
-                <p>Section: E</p>
-                <a href="#" id="rprp" class="pending-approval">Pending Approval</a>
-                <p>Class: Block 5 1st Floor</p>
-            </div>
-            <div class="active-box11">
-                <a href="#"> <i class="fas fa-edit"></i></a>
-                <p>Grade: 9th</p>
-                <p>Section: E</p>
-                <a href="#" id="rprp" class="request-approval">Request Approval</a>
-                <p>Class: Block 5 1st Floor</p>
-            </div>
-            <div class="active-box11">
-                <a href="#"> <i class="fas fa-edit"></i></a>
-                <p>Grade: 9th</p>
-                <p>Section: E</p>
-                <a href="#" id="rprp" class="request-approval">Request Approval</a>
-                <p>Class: Block 5 1st Floor</p>
-            </div>
+<!--            <div class="active-box11">-->
+<!--                <a href="#"><i class="fas fa-eye"></i></a>-->
+<!--                <p>Grade: 9th</p>-->
+<!--                <p>Section: E</p>-->
+<!--                <a href="#" id="rprp" class="pending-approval">Pending Approval</a>-->
+<!--                <p>Class: Block 5 1st Floor</p>-->
+<!--            </div>-->
+<!--            <div class="active-box11">-->
+<!--                <a href="#"> <i class="fas fa-edit"></i></a>-->
+<!--                <p>Grade: 9th</p>-->
+<!--                <p>Section: E</p>-->
+<!--                <a href="#" id="rprp" class="request-approval">Request Approval</a>-->
+<!--                <p>Class: Block 5 1st Floor</p>-->
+<!--            </div>-->
+<!--            <div class="active-box11">-->
+<!--                <a href="#"> <i class="fas fa-edit"></i></a>-->
+<!--                <p>Grade: 9th</p>-->
+<!--                <p>Section: E</p>-->
+<!--                <a href="#" id="rprp" class="request-approval">Request Approval</a>-->
+<!--                <p>Class: Block 5 1st Floor</p>-->
+<!--            </div>-->
 
 
         </div>
         <h2>Ended Class</h2>
         <div class="end-classed-teach">
-            <h2>2023</h2>
             <div class="end-class-year">
-                <div class="active-box11">
-                    <i class="fas fa-eye"></i>
-                    <p>Grade: 9th</p>
-                    <p>Section: E</p>
+                <div th:each="cls : ${endClasses}" class="active-box11">
+                    <a href="#"><i class="fas fa-eye"></i></a>
+                    <p>Grade: <strong th:text="${cls.classNo}"></strong></p>
+                    <p>Section: <strong th:text="${cls.section}"></strong></p>
                     <a href="#" id="rprp" class="request-approved">Request Approved</a>
                     <p>Class: Block 5 1st Floor</p>
                 </div>
-                <div class="active-box11">
-                    <i class="fas fa-eye"></i>
-                    <p>Grade: 9th</p>
-                    <p>Section: E</p>
-                    <a href="#" id="rprp" class="request-approved">Request Approved</a>
-                    <p>Class: Block 5 1st Floor</p>
-                </div>
-                <div class="active-box11">
-                    <i class="fas fa-eye"></i>
-                    <p>Grade: 9th</p>
-                    <p>Section: E</p>
-                    <a href="#" id="rprp" class="request-approved">Request Approved</a>
-                    <p>Class: Block 5 1st Floor</p>
-                </div>
-            </div>
-            <h2>2022</h2>
-            <div class="end-class-year">
-                <div class="active-box11">
-                    <i class="fas fa-eye"></i>
-                    <p>Grade: 9th</p>
-                    <p>Section: E</p>
-                    <a href="#" id="rprp" class="request-approved">Request Approved</a>
-                    <p>Class: Block 5 1st Floor</p>
-                </div>
-                <div class="active-box11">
-                    <i class="fas fa-eye"></i>
-                    <p>Grade: 9th</p>
-                    <p>Section: E</p>
-                    <a href="#" id="rprp" class="request-approved">Request Approved</a>
-                    <p>Class: Block 5 1st Floor</p>
-                </div>
-                <div class="active-box11">
-                    <i class="fas fa-eye"></i>
-                    <p>Grade: 9th</p>
-                    <p>Section: E</p>
-                    <a href="#" id="rprp" class="request-approved">Request Approved</a>
-                    <p>Class: Block 5 1st Floor</p>
-                </div>
-            </div>
+<!--                <div class="active-box11">-->
+<!--                    <i class="fas fa-eye"></i>-->
+<!--                    <p>Grade: 9th</p>-->
+<!--                    <p>Section: E</p>-->
+<!--                    <a href="#" id="rprp" class="request-approved">Request Approved</a>-->
+<!--                    <p>Class: Block 5 1st Floor</p>-->
+<!--                </div>-->
+<!--                <div class="active-box11">-->
+<!--                    <i class="fas fa-eye"></i>-->
+<!--                    <p>Grade: 9th</p>-->
+<!--                    <p>Section: E</p>-->
+<!--                    <a href="#" id="rprp" class="request-approved">Request Approved</a>-->
+<!--                    <p>Class: Block 5 1st Floor</p>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <h2>2022</h2>-->
+<!--            <div class="end-class-year">-->
+<!--                <div class="active-box11">-->
+<!--                    <i class="fas fa-eye"></i>-->
+<!--                    <p>Grade: 9th</p>-->
+<!--                    <p>Section: E</p>-->
+<!--                    <a href="#" id="rprp" class="request-approved">Request Approved</a>-->
+<!--                    <p>Class: Block 5 1st Floor</p>-->
+<!--                </div>-->
+<!--                <div class="active-box11">-->
+<!--                    <i class="fas fa-eye"></i>-->
+<!--                    <p>Grade: 9th</p>-->
+<!--                    <p>Section: E</p>-->
+<!--                    <a href="#" id="rprp" class="request-approved">Request Approved</a>-->
+<!--                    <p>Class: Block 5 1st Floor</p>-->
+<!--                </div>-->
+<!--                <div class="active-box11">-->
+<!--                    <i class="fas fa-eye"></i>-->
+<!--                    <p>Grade: 9th</p>-->
+<!--                    <p>Section: E</p>-->
+<!--                    <a href="#" id="rprp" class="request-approved">Request Approved</a>-->
+<!--                    <p>Class: Block 5 1st Floor</p>-->
+<!--                </div>-->
+<!--            </div>-->
         </div>
     </div>
     <div style="margin: 40px;">.</div>
@@ -396,40 +389,17 @@
 
 <section style="display:none;" id="qzs" class="home">
     <h2 class="text" align="center">Quiz List</h2>
+    <div style="margin: 20px;"><a th:href="@{/quiz/question}" class="btn btn-view"><i class="fas fa-plus"></i>Prepare Quiz</a></div>
     <div class="marklist-container-teach">
         <h2>Active Quizzes</h2>
         <div class="active-classes-teach">
-            <div class="active-box11">
+            <div th:each="quiz: ${getTitle}" class="active-box11">
                 <a href="#"><i class="fas fa-edit"></i></a>
-                <p>Grade: 9th</p>
+                <p>Grade: <strong th:text="${quiz.classId}"></strong></p>
                 <p>ID: UNI-12/2012</p>
                 <a href="#" id="rprp" class="active-quiz-111">Active Now</a>
-                <p>Title: Quiz out of 10</p>
-                <p>Subject: Physcics</p>
-            </div>
-            <div class="active-box11">
-                <a href="#"><i class="fas fa-edit"></i></a>
-                <p>Grade: All</p>
-                <p>ID: UNI-12/2012</p>
-                <a href="#" id="rprp" class="deactive-quiz-111">Deactived</a>
-                <p>Title: Quiz out of 10</p>
-                <p>Subject: Physcics</p>
-            </div>
-            <div class="active-box11">
-                <a href="#"> <i class="fas fa-edit"></i></a>
-                <p>Grade: 10th</p>
-                <p>ID: UNI-12/2012</p>
-                <a href="#" id="rprp" class="active-quiz-111">Active Now</a>
-                <p>Title: Quiz out of 10</p>
-                <p>Subject: Physcics</p>
-            </div>
-            <div class="active-box11">
-                <a href="#"> <i class="fas fa-edit"></i></a>
-                <p>Grade: 9th</p>
-                <p>ID: UNI-12/2012</p>
-                <a href="#" id="rprp" class="active-quiz-111">Active Now</a>
-                <p>Title: Quiz out of 10</p>
-                <p>Subject: Physcics</p>
+                <p>Title: <strong th:text="${quiz.title}"></strong></p>
+                <p>Subject: <strong th:text="${quiz.subject}"></strong> </p>
             </div>
         </div>
         <div style="margin: 40px;">.</div>
