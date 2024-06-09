@@ -37,8 +37,8 @@ The system includes several key functionalities to meet the needs of its users:
 
 1. **Clone the repository:**
    ```sh
-   git clone https://github.com/yourusername/Mattu-University-Special-School.git
-   cd Mattu-University-Special-School
+   git clone https://github.com/gutudanii/MAUSS.git
+   cd MAUSS
    ```
 
 2. **Setup MySQL Database:**
