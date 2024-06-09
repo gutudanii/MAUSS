@@ -1,5 +1,6 @@
 ---
 # Mattu University Special School Web Application
+![Project Logo](Mattu-University-Special-School/src/main/resources/static/images/home.jpg)
 
 ## Overview
 This project is a web-based application designed for Mattu University Special School, developed as a final year project for a B.Sc. in Computer Science. The application provides a comprehensive platform for managing student information, facilitating communication, and enhancing the educational experience through various features such as user authentication, mark list management, material access, test practice, and more.
