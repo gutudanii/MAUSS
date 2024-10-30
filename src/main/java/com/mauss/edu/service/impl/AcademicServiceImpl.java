@@ -3,9 +3,7 @@ package com.mauss.edu.service.impl;
 import com.mauss.edu.model.Academic;
 import com.mauss.edu.repository.AcademicRepository;
 import com.mauss.edu.service.AcademicService;
-import com.mauss.edu.service.ClassesService;
 import lombok.AllArgsConstructor;
-import org.hibernate.id.UUIDGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
